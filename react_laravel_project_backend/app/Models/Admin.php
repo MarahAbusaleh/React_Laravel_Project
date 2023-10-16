@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Contact extends Model
+class Admin extends Model
 {
     use HasFactory;
 
-    protected $table = 'contact';
+    protected $table = 'admins';
 
     protected $fillable = [
         'name',
         'email',
-        'message',
+        'password',
+        'image',
+        'phone',
     ];
 }
