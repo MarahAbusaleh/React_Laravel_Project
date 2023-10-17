@@ -28,20 +28,20 @@ const SearchRooms = ({ products, addToCartProduct }) => {
                     <div className="room-content">
                       <h2><Link onClick={ClickHandler} to={`/room-single/${product.id}`}>{product.title}</Link></h2>
                       <ul>
-                          <li><strong>Capacity:</strong> {product.capacity}</li>
-                          <li><strong>Max Children:</strong> {product.Children}</li>
+                        <li><strong>Capacity:</strong> {product.capacity}</li>
+                        <li><strong>Max Children:</strong> {product.Children}</li>
                       </ul>
                       <h3>${product.price} <span>/ Night</span></h3>
                       <div className="add-to-cart">
-                            <button
-                            className="theme-btn mt-3"
-                              data-bs-toggle="tooltip"
-                              data-bs-html="true"
-                              title="Add to Cart"
-                              onClick={() => addToCartProduct(product)}
-                            >
-                             Select this room
-                            </button>
+                        <button
+                          className="theme-btn mt-3"
+                          data-bs-toggle="tooltip"
+                          data-bs-html="true"
+                          title="Add to Cart"
+                          onClick={() => addToCartProduct(product)}
+                        >
+                          Select this room
+                        </button>
                       </div>
                     </div>
                   </div>

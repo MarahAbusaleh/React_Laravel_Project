@@ -4,7 +4,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { connect } from "react-redux";
 import api from "../../api";
-import blogs from '../../api/blogs'
 
 
 const RoomSidebar = (props) => {
@@ -62,22 +61,6 @@ const RoomSidebar = (props) => {
                         </div>
                     </form>
                 </div>
-                <div className="widget recent-post-widget">
-                    <h3>Related Posts</h3>
-                    <div className="posts">
-                        {blogs.map((blog, Bitem) => (
-                            <div className="post" key={Bitem}>
-                                <div className="img-holder">
-                                    <img src={blog.screens} alt="" />
-                                </div>
-                                <div className="details">
-                                    <h4><Link onClick={ClickHandler} to={`/blog-single/${blog.id}`}>{blog.title}</Link></h4>
-                                    <span className="date">{blog.create_at}</span>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
                 <div className="widget wpo-instagram-widget">
                     <div className="widget-title">
                         <h3>Discover Our Rooms</h3>
@@ -87,7 +70,7 @@ const RoomSidebar = (props) => {
                             products.slice(0, 6).map((product, pitem) => (
                                 <li key={pitem}>
                                     <Link onClick={ClickHandler} to={`/room-single/${product.id}`}><img src={product.proImg}
-                                    alt="" /></Link>
+                                        alt="" /></Link>
                                 </li>
                             ))}
                     </ul>

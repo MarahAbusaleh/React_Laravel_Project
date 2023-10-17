@@ -1,23 +1,23 @@
 import React, { Fragment } from 'react';
 import PageTitle from '../../components/pagetitle/PageTitle';
 import Navbar from '../../components/Navbar';
-import Logo from '../../images/logo2.png'
-import Newslatter from '../../components/Newslatter/Newslatter';
-import BlogList from '../../components/BlogList'
+import Profile from '../../components/Profile';
 import Footer from '../../components/footer'
 import Scrollbar from '../../components/scrollbar'
+import { connect } from "react-redux";
+import Logo from '../../images/logo2.png'
 
-const BlogPageLeft = () => {
+const ProfilePage = () => {
     return (
         <Fragment>
             <Navbar hclass={'wpo-header-style-3'} Logo={Logo} />
-            <PageTitle pageTitle={'Latest News'} pagesub={'Blog'} />
-            <BlogList blLeft={'order-lg-1'} blRight={'order-lg-2'} />
-            <Newslatter nClass={'section-bg'}/>
+            <PageTitle pageTitle={'User Profile'} pagesub={'User Profile'} />
+            <Profile />
             <Footer />
             <Scrollbar />
         </Fragment>
     )
 };
-export default BlogPageLeft;
 
+
+export default ProfilePage;

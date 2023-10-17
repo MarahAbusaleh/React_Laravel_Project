@@ -11,7 +11,6 @@ import Logo from '../../images/logo2.png'
 
 import dimg1 from '../../images/destination-single/2.jpg'
 import dimg2 from '../../images/destination-single/3.jpg'
-import Newslatter from '../../components/Newslatter/Newslatter';
 
 
 const DestinationSinglePage = (props) => {
@@ -67,7 +66,6 @@ const DestinationSinglePage = (props) => {
                     </div>
                 </div>
             </section>
-            <Newslatter nClass={'section-bg'}/>
             <Footer />
             <Scrollbar />
         </Fragment>

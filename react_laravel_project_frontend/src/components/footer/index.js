@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../../images/logo.png'
-import Services from '../../api/service'
 
 
 const Footer = (props) => {
@@ -43,18 +42,6 @@ const Footer = (props) => {
                                             <i className="ti-google"></i>
                                         </Link>
                                     </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
-                            <div className="widget link-widget s1">
-                                <div className="widget-title">
-                                    <h3>Services</h3>
-                                </div>
-                                <ul>
-                                    {Services.slice(0,5).map((service, sitem) => (
-                                        <li key={sitem}><Link onClick={ClickHandler} to={`/service-single/${service.id}`}>{service.title}</Link></li>
-                                    ))}
                                 </ul>
                             </div>
                         </div>

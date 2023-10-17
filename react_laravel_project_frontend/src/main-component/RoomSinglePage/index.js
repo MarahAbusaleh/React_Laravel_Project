@@ -9,7 +9,6 @@ import Footer from '../../components/footer';
 import Logo from '../../images/logo2.png'
 import Rooms from './rooms';
 import RoomDetails from './RoomDetails';
-import Newslatter from '../../components/Newslatter/Newslatter';
 
 
 const RoomSinglePage = (props) => {
@@ -67,12 +66,11 @@ const RoomSinglePage = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <Rooms item={item}/>
-                        <RoomDetails/>
+                        <Rooms item={item} />
+                        <RoomDetails />
                     </div>
-                : null}
+                    : null}
             </div>
-            <Newslatter nClass={'section-bg'}/>
             <Footer />
             <Scrollbar />
         </Fragment>
