@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\UserDataTable;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -17,5 +18,19 @@ class UserController extends Controller
     public function updateUserInfo(Request $request)
     {
         //
+    }
+
+
+    public function index(UserDataTable $dataTables)
+    {
+        return $dataTables->render('AdminDashboard.Pages.user.index');
+    }
+
+    public function edit()
+    {
+    }
+
+    public function destroy()
+    {
     }
 }
