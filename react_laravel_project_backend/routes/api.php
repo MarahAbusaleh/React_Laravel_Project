@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 /*---------------------------------------- Marah Routes ----------------------------------------*/
 Route::get('getUserInfo/{id}', [UserController::class, 'getUserInfo']);
 Route::put('updateUserPass/{id}', [UserController::class, 'updateUserPass']);
+Route::put('updateUserInfo/{id}', [UserController::class, 'updateUserInfo']);
+Route::post('updateUserImage/{id}', [UserController::class, 'updateUserImage']);
+
+Route::post('addNewContactMessage', [ContactController::class, 'addNewContactMessage']);
+
+Route::get('getTheLastUserOrder/{id}', [OrderController::class, 'getTheLastUserOrder']);

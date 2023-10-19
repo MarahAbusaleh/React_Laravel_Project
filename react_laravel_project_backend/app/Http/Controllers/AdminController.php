@@ -4,54 +4,49 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
 
-    public function loginAdmin()
-    {
-        //
-    }
-
-
     public function index()
     {
-        //
+        return view('AdminDashboard.Pages.login');
     }
 
 
-    public function create()
+    public function home()
     {
-        //
+        return view('AdminDashboard.Pages.index');
     }
 
 
-    public function store(Request $request)
+    public function AdminLogin(Request $request)
     {
-        //
+        $admin = Admin::where('email', $request->email)->first();
+
+        if ($admin) {
+            if ($request->password == $admin->password) {
+                $request->session()->put('id', $admin->id);
+
+                return view('AdminDashboard.Pages.index');
+            } else {
+                Alert::error('error', 'Password does not match');
+                return back();
+            }
+        } else {
+            Alert::error('error', 'This email is not registered');
+            return back();
+        }
     }
 
-
-    public function show(Admin $admin)
+    public function logout()
     {
-        //
-    }
-
-
-    public function edit(Admin $admin)
-    {
-        //
-    }
-
-
-    public function update(Request $request, Admin $admin)
-    {
-        //
-    }
-
-
-    public function destroy(Admin $admin)
-    {
-        //
+        if (Session::has('id')) {
+            Session::pull('id');
+        }
+        return redirect()->route('login');
     }
 }

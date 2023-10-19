@@ -24,8 +24,8 @@ class UserDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('user.edit', $query->id) . "' class='btn btn-success'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('user.destroy', $query->id) . "' class='btn btn-danger my-2 delete-item'><i class='fas fa-trash-alt'></i></a>";
+                $editBtn = "<a href='" . route('user.edit', $query->id) . "' class='btn btn-success' style='padding: 5px; margin-right: 5px; vertical-align: middle;'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('user.destroy', $query->id) . "' class='btn btn-danger my-2 delete-item' style='padding: 5px; vertical-align: middle;'><i class='fas fa-trash-alt'></i></a>";
 
                 return $editBtn . $deleteBtn;
             })

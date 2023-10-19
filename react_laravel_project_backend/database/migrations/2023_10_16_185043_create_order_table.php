@@ -26,7 +26,7 @@ return new class extends Migration
             $table->foreign('item_id')->references('id')->on('item');
 
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::enableForeignKeyConstraints();
