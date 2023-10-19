@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom'
 import HeaderTopbar from "../HeaderTopbar";
 import { totalPrice } from "../../utils";
 import shape from "../../images/hotel.png"
+import { useAuthContext } from "../../main-component/Contexts/ContextProvider";
 
 const Header = (props) => {
-
+const { currentUser, logout } = useAuthContext();
   const [menuActive, setMenuState] = useState(false);
   const [cartActive, setcartState] = useState(false);
   const SubmitHandler = (e) => {
@@ -35,46 +36,121 @@ const Header = (props) => {
               </div>
               <div className="col-lg-2 col-md-6 col-6">
                 <div className="navbar-header">
-                  <Link onClick={ClickHandler} className="navbar-brand logo" to="/home">
+                  <Link
+                    onClick={ClickHandler}
+                    className="navbar-brand logo"
+                    to="/home"
+                  >
                     <img src={props.Logo} alt="" />
                   </Link>
                 </div>
               </div>
               <div className="col-lg-9 col-md-1 col-1">
-                <div id="navbar" className="collapse navbar-collapse navigation-holder">
-                  <button className="menu-close"><i className="ti-close"></i></button>
+                <div
+                  id="navbar"
+                  className="collapse navbar-collapse navigation-holder"
+                >
+                  <button className="menu-close">
+                    <i className="ti-close"></i>
+                  </button>
                   <ul className="nav navbar-nav mb-2 mb-lg-0">
                     <li className="menu-item-has-children">
-                      <Link to="/" >Home</Link>
+                      <Link to="/">Home</Link>
                       <ul className="sub-menu">
-                        <li><Link onClick={ClickHandler} to="/home">Home style 1</Link></li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/home">
+                            Home style 1
+                          </Link>
+                        </li>
                       </ul>
                     </li>
-                    <li><Link onClick={ClickHandler} to="/about">About</Link></li>
+                    <li>
+                      <Link onClick={ClickHandler} to="/about">
+                        About
+                      </Link>
+                    </li>
                     <li className="menu-item-has-children">
-                      <Link onClick={ClickHandler} to="/">Room</Link>
+                      <Link onClick={ClickHandler} to="/">
+                        Room
+                      </Link>
                       <ul className="sub-menu">
-                        <li><Link onClick={ClickHandler} to="/room">Room</Link></li>
-                        <li><Link onClick={ClickHandler} to="/room-single/1">Room single</Link></li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/room">
+                            Room
+                          </Link>
+                        </li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/room-single/1">
+                            Room single
+                          </Link>
+                        </li>
                       </ul>
                     </li>
                     <li className="menu-item-has-children">
-                      <Link onClick={ClickHandler} to="/">Destinition</Link>
+                      <Link onClick={ClickHandler} to="/">
+                        Destinition
+                      </Link>
                       <ul className="sub-menu">
-                        <li><Link onClick={ClickHandler} to="/destination">Destinition</Link></li>
-                        <li><Link onClick={ClickHandler} to="/destination-single/1">Destinition single</Link></li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/destination">
+                            Destinition
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            onClick={ClickHandler}
+                            to="/destination-single/1"
+                          >
+                            Destinition single
+                          </Link>
+                        </li>
                       </ul>
                     </li>
                     <li className="menu-item-has-children">
-                      <Link onClick={ClickHandler} to="/blog">Blog</Link>
+                      <Link onClick={ClickHandler} to="/blog">
+                        Blog
+                      </Link>
                       <ul className="sub-menu">
-                        <li><Link onClick={ClickHandler} to="/blog">Blog right sidebar</Link></li>
-                        <li><Link onClick={ClickHandler} to="/blog-left-sidebar">Blog left sidebar</Link></li>
-                        <li><Link onClick={ClickHandler} to="/blog-fullwidth">Blog fullwidth</Link></li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/blog">
+                            Blog right sidebar
+                          </Link>
+                        </li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/blog-left-sidebar">
+                            Blog left sidebar
+                          </Link>
+                        </li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/blog-fullwidth">
+                            Blog fullwidth
+                          </Link>
+                        </li>
                         <li className="menu-item-has-children">
-                          <Link onClick={ClickHandler} to="/">Blog details</Link>
+                          <Link onClick={ClickHandler} to="/">
+                            Blog details
+                          </Link>
                           <ul className="sub-menu">
-                            <li><Link onClick={ClickHandler} to="/blog-single/1">Blog details right sidebar</Link>
+                            <li>
+                              <Link onClick={ClickHandler} to="/blog-single/1">
+                                Blog details right sidebar
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                onClick={ClickHandler}
+                                to="/blog-single-left-sidebar/1"
+                              >
+                                Blog details left sidebar
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                onClick={ClickHandler}
+                                to="/blog-single-fullwidth/1"
+                              >
+                                Blog details fullwidth
+                              </Link>
                             </li>
                             <li><Link onClick={ClickHandler} to="/blog-single-left-sidebar/1">Blog details left
                               sidebar</Link></li>
@@ -84,60 +160,154 @@ const Header = (props) => {
                       </ul>
                     </li>
                     <li className="menu-item-has-children">
-                      <Link onClick={ClickHandler} to="/">Pages</Link>
+                      <Link onClick={ClickHandler} to="/">
+                        Pages
+                      </Link>
                       <ul className="sub-menu">
-                        <li><Link onClick={ClickHandler} to="/service">Service</Link></li>
-                        <li><Link onClick={ClickHandler} to="/service-s2">Service Style2</Link></li>
-                        <li><Link onClick={ClickHandler} to="/service-single/1">Service Single</Link></li>
-                        <li><Link onClick={ClickHandler} to="/cart">Cart</Link></li>
-                        <li><Link onClick={ClickHandler} to="/checkout">Checkout</Link></li>
-                        <li><Link onClick={ClickHandler} to="/pricing">Pricing</Link></li>
-                        <li><Link onClick={ClickHandler} to="/search-result">Search Result</Link></li>
-                        <li><Link onClick={ClickHandler} to="/404">404</Link></li>
-                        <li><Link onClick={ClickHandler} to="/login">Login</Link></li>
-                        <li><Link onClick={ClickHandler} to="/register">Register</Link></li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/service">
+                            Service
+                          </Link>
+                        </li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/service-s2">
+                            Service Style2
+                          </Link>
+                        </li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/service-single/1">
+                            Service Single
+                          </Link>
+                        </li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/cart">
+                            Cart
+                          </Link>
+                        </li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/checkout">
+                            Checkout
+                          </Link>
+                        </li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/pricing">
+                            Pricing
+                          </Link>
+                        </li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/search-result">
+                            Search Result
+                          </Link>
+                        </li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/404">
+                            404
+                          </Link>
+                        </li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/login">
+                            Login
+                          </Link>
+                        </li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/register">
+                            Register
+                          </Link>
+                        </li>
                       </ul>
                     </li>
-                    <li><Link onClick={ClickHandler} to="/contact">Contact</Link></li>
+                    <li>
+                      <Link onClick={ClickHandler} to="/contact">
+                        Contact
+                      </Link>
+                    </li>
                   </ul>
-
                 </div>
               </div>
               <div className="col-lg-1 col-md-2 col-2">
                 <div className="header-right">
                   <div className="header-search-form-wrapper">
                     <div className="cart-search-contact">
-                      <Link to="/profile">
-                        <button className="search-toggle-btn">
-                          <i className={`fi ${menuActive ? "ti-close" : "fi flaticon-user"}`}></i>
-                        </button>
-                      </Link>
+                      {currentUser ? (
+                          <li className="menu-item-has-children">
+                              <ul className="sub-menu">  <Link to="/profile">
+                            <button className="search-toggle-btn">
+                              <i
+                                className={`fi ${
+                                  menuActive ? "ti-close" : "fi flaticon-user"
+                                }`}
+                              ></i>
+                            </button>
+                          </Link>
+                          <Link>
+                              {" "}
+                              <button onClick={logout} to="/login">
+                                logout
+                              </button>
+                            </Link></ul>
+                            
+                          </li>
+                        
+                       
+                      ) : (
+                       
+                        <>
+                        </>
+                      )}
                     </div>
                   </div>
                   <div className="header-search-form-wrapper">
                     <div className="cart-search-contact">
-                      <button onClick={() => setMenuState(!menuActive)} className="search-toggle-btn"><i
-                        className={`fi ${menuActive ? "ti-close" : "fi flaticon-search"}`}></i></button>
-                      <div className={`header-search-form ${menuActive ? "header-search-content-toggle" : ""}`}>
+                      <button
+                        onClick={() => setMenuState(!menuActive)}
+                        className="search-toggle-btn"
+                      >
+                        <i
+                          className={`fi ${
+                            menuActive ? "ti-close" : "fi flaticon-search"
+                          }`}
+                        ></i>
+                      </button>
+                      <div
+                        className={`header-search-form ${
+                          menuActive ? "header-search-content-toggle" : ""
+                        }`}
+                      >
                         <form onSubmit={SubmitHandler}>
                           <div>
-                            <input type="text" className="form-control"
-                              placeholder="Search here..." />
-                            <button type="submit"><i
-                              className="fi flaticon-search"></i></button>
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="Search here..."
+                            />
+                            <button type="submit">
+                              <i className="fi flaticon-search"></i>
+                            </button>
                           </div>
                         </form>
                       </div>
                     </div>
                   </div>
                   <div className="mini-cart">
-                    <button className="cart-toggle-btn" onClick={() => setcartState(!cartActive)}>
+                    <button
+                      className="cart-toggle-btn"
+                      onClick={() => setcartState(!cartActive)}
+                    >
                       {" "}
                       <i className="fi flaticon-shopping-cart"></i>{" "}
                       <span className="cart-count">{carts.length}</span>
                     </button>
-                    <div className={`mini-cart-content ${cartActive ? "mini-cart-content-toggle" : ""}`}>
-                      <button className="mini-cart-close" onClick={() => setcartState(!cartActive)}><i className="ti-close"></i></button>
+                    <div
+                      className={`mini-cart-content ${
+                        cartActive ? "mini-cart-content-toggle" : ""
+                      }`}
+                    >
+                      <button
+                        className="mini-cart-close"
+                        onClick={() => setcartState(!cartActive)}
+                      >
+                        <i className="ti-close"></i>
+                      </button>
                       <div className="mini-cart-items">
                         {carts &&
                           carts.length > 0 &&
@@ -151,7 +321,7 @@ const Header = (props) => {
                               <div className="mini-cart-item-des">
                                 <p>{catItem.title} </p>
                                 <span className="mini-cart-item-price">
-                                  ${catItem.price} x {" "} {catItem.qty}
+                                  ${catItem.price} x {catItem.qty}
                                 </span>
                                 <span className="mini-cart-item-quantity">
                                   <button
@@ -168,10 +338,24 @@ const Header = (props) => {
                           ))}
                       </div>
                       <div className="mini-cart-action clearfix">
-                        <span className="mini-checkout-price">Subtotal: <span> ${totalPrice(carts)}</span></span>
+                        <span className="mini-checkout-price">
+                          Subtotal: <span> ${totalPrice(carts)}</span>
+                        </span>
                         <div className="mini-btn">
-                          <Link onClick={ClickHandler} to="/checkout" className="view-cart-btn s1">Checkout</Link>
-                          <Link onClick={ClickHandler} to="/cart" className="view-cart-btn">View Cart</Link>
+                          <Link
+                            onClick={ClickHandler}
+                            to="/checkout"
+                            className="view-cart-btn s1"
+                          >
+                            Checkout
+                          </Link>
+                          <Link
+                            onClick={ClickHandler}
+                            to="/cart"
+                            className="view-cart-btn"
+                          >
+                            View Cart
+                          </Link>
                         </div>
                       </div>
                       <div className="visible-icon">
@@ -186,7 +370,7 @@ const Header = (props) => {
         </nav>
       </div>
     </header>
-  )
+  );
 }
 
 const mapStateToProps = (state) => {

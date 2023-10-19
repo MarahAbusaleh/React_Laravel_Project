@@ -15,9 +15,9 @@ class Category extends Model
         'name',
         'image',
         'description',
-        'uses',
     ];
 
+    public $timestamps = false;
 
     public function items()
     {

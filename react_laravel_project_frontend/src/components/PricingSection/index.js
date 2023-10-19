@@ -1,92 +1,103 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import PrImg1 from '../../images/pricing/1.jpg'
-import PrImg2 from '../../images/pricing/2.jpg'
-import PrImg3 from '../../images/pricing/3.jpg'
-import SectionTitleS2 from '../SectionTitleS2'
-
-
-const Pricing = [
-    {
-        prImg: PrImg1,
-        pakage: 'Basic Package',
-        price: '250',
-        subs: 'Night',
-        l1: 'Altime Free Wifi',
-        l2: '2 People Breakfast',
-        l3: '1 Bed Room',
-        l4: '2 People in Room'
-    },
-    {
-        prImg: PrImg2,
-        pakage: 'Standard Package',
-        price: '450',
-        subs: 'Night',
-        l1: 'Altime Free Wifi',
-        l2: '2 People Breakfast',
-        l3: '1 Bed Room',
-        l4: '2 People in Room'
-    },
-    {
-        prImg: PrImg3,
-        pakage: 'Luxary Package',
-        price: '650',
-        subs: 'Night',
-        l1: 'Altime Free Wifi',
-        l2: '2 People Breakfast',
-        l3: '1 Bed Room',
-        l4: '2 People in Room'
-    },
-]
-
-const ClickHandler = () => {
-    window.scrollTo(10, 0);
-}
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
+import SectionTitleS2 from "../SectionTitleS2";
+import { Link, useNavigate } from "react-router-dom";
 
 const PricingSection = (props) => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-    return (
-        <section className="wpo-pricing-section section-padding">
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-xl-6">
-                        <SectionTitleS2 MainTitle={'Our Awesome Packages'} />
-                    </div>
-                </div>
-                <div className="wpo-pricing-wrap">
-                    <div className="row">
-                        {Pricing.map((pricing, pitem) => (
-                            <div className="col col-lg-4 col-md-6 col-12" key={pitem}>
-                                <div className="wpo-pricing-item">
-                                    <div className="wpo-pricing-top">
-                                        <div className="wpo-pricing-img">
-                                            <img src={pricing.prImg} alt="" />
-                                        </div>
-                                        <div className="wpo-pricing-text">
-                                            <h4>{pricing.pakage}</h4>
-                                            <h2>${pricing.price}<span>/Per {pricing.subs}</span></h2>
-                                        </div>
-                                    </div>
-                                    <div className="wpo-pricing-bottom">
-                                        <div className="wpo-pricing-bottom-text">
-                                            <ul>
-                                                <li>{pricing.l1}</li>
-                                                <li>{pricing.l2}</li>
-                                                <li>{pricing.l4}</li>
-                                                <li>{pricing.l3}</li>
-                                            </ul>
-                                            <Link onClick={ClickHandler} className="theme-btn" to="/pricing">Book Rooms</Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </section>
+  const maxRetries = 3;
+  const delayBetweenRetries = 1000;
 
-    )
-}
+  const makeRequestWithRetries = (url, retries = 0) => {
+    Axios.get(url)
+      .then((response) => {
+        if (!Array.isArray(response.data.categories)) {
+          setError(new Error("Data is not an array"));
+        } else {
+          setCategories(response.data.categories);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (
+          err.response &&
+          err.response.status === 429 &&
+          retries < maxRetries
+        ) {
+          setTimeout(() => {
+            makeRequestWithRetries(url, retries + 1);
+          }, delayBetweenRetries);
+        } else {
+          setError(err);
+          setLoading(false);
+        }
+      });
+  };
+
+  useEffect(() => {
+    makeRequestWithRetries("http://127.0.0.1:8000/api/categories");
+  }, []);
+
+  const ClickHandler = (categoryId) => {
+    // window.scrollTo(10, 0);
+    navigate(`/destination/${categoryId}`);
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <h1>Error fetching data: {error.message}</h1>;
+  }
+
+  return (
+    <section className="wpo-pricing-section section-padding">
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-xl-6">
+            <SectionTitleS2 MainTitle={"Drone Types"} />
+          </div>
+        </div>
+        <div className="wpo-pricing-wrap">
+          <div className="row">
+            {categories.map((category) => (
+              <div className="col col-lg-4 col-md-6 col-12" key={category.id}>
+                <div className="wpo-pricing-item">
+                  <div className="wpo-pricing-top">
+                    <div className="wpo-pricing-img">
+                      <img src={category.image} alt="" />
+                    </div>
+                    <div className="wpo-pricing-text">
+                      <h4>{category.name}</h4>
+                    </div>
+                  </div>
+                  <div className="wpo-pricing-bottom">
+                    <div className="wpo-pricing-bottom-text">
+                      <ul>
+                        <li>{category.description}</li>
+                      </ul>
+                      <Link
+                        onClick={() => ClickHandler(category.id)}
+                        className="theme-btn"
+                        to={`/destination/${category.id}`}
+                      >
+                        Show more
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 export default PricingSection;

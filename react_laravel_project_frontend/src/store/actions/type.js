@@ -10,3 +10,5 @@ export const INCREMENT_QUANTITY = 'INCREMENT_QUANTITY';
 export const DECREMENT_QUANTITY = 'DECREMENT_QUANTITY';
 export const ADD_TO_COMPARE = 'ADD_TO_COMPARE';
 export const REMOVE_FROM_COMPARE_LIST = 'REMOVE_FROM_COMPARE_LIST';
+export const Register = "Register";
+export const Login = "Login";

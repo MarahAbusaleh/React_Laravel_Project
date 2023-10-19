@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('image');
             $table->longText('description');
-
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('category');
         });
