@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +21,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-/*---------------------------------------- Marah Routes ----------------------------------------*/
-Route::get('getUserInfo/{id}', [UserController::class, 'getUserInfo']);
-Route::put('updateUserPass/{id}', [UserController::class, 'updateUserPass']);
+// Additional route for getting all categories in API format
+Route::get('/categories',[ CategoryController :: class ,'getAllCategories']);
+// Route::resource('reviews',[ ReviewController::class ,'getAllReviews']);
+// Route::resource('review/{id}',[ ReviewController::class ,'getSingleReview']);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+// Additional route for getting all categories in API format
+Route::get('/categories',[ CategoryController :: class ,'getAllCategories']);
+Route::get('/items',[ ItemController :: class ,'getAllItems']);
+Route::get('/item/{id}',[ ItemController :: class ,'getSingleItem']);
+// Route::resource('reviews',[ ReviewController::class ,'getAllReviews']);
+// Route::resource('review/{id}',[ ReviewController::class ,'getSingleReview']);
+Route::resource('reviews', ReviewController::class);
