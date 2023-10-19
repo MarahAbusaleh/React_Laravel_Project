@@ -73,6 +73,7 @@ const logout = () => {
   axiosClient.post("/logout").then(() => {
   localStorage.removeItem('user');
     setCurrentUser(null);
+    localStorage.removeItem('user_id');
   });
 }
   return (
