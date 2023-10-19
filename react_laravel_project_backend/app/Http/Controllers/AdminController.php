@@ -8,18 +8,16 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
 
-    public function loginAdmin()
-    {
-        //
-    }
-
-
     public function index()
     {
         //
     }
 
-
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         //

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from '../HomePage'
 import AboutPage from '../AboutPage/AboutPage';
 import CartPage from '../CartPage';
@@ -16,6 +16,8 @@ import ForgotPassword from '../ForgotPassword'
 import PricingPage from '../PricingPage/PricingPage';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import ContactPage from '../ContactPage/ContactPage';
+import OrderForm from '../../components/order/OrderForm';
+import Checkout from '../../components/checkout/index';
 import { AuthProvider } from "../Contexts/ContextProvider";
 import Google from "../LoginPage/logingoogle";
 
@@ -47,6 +49,9 @@ const AllRoute = () => {
             <Route path="register" element={<SignUpPage />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="/google" component={<Google/>} />
+            <Route path="order" element={<OrderForm />} />
+          <Route path="payment" element={<Checkout />} />
+
           </Routes>
         </AuthProvider>
       </BrowserRouter>
@@ -55,3 +60,4 @@ const AllRoute = () => {
 }
 
 export default AllRoute;
+

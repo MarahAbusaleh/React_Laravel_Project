@@ -1,7 +1,13 @@
 <?php
 
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CategoryController;
+
+
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\NewPasswordController;
@@ -41,5 +47,28 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Additional route for getting all categories in API format
+Route::get('/categories',[ CategoryController :: class ,'getAllCategories']);
+// Route::resource('reviews',[ ReviewController::class ,'getAllReviews']);
+// Route::resource('review/{id}',[ ReviewController::class ,'getSingleReview']);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+/*---------------------------------------- Marah Routes ----------------------------------------*/
+Route::get('getUserInfo/{id}', [UserController::class, 'getUserInfo']);
+Route::put('updateUserPass/{id}', [UserController::class, 'updateUserPass']);
+
+
+Route::post('/order', [OrderController::class, 'store']);
+Route::get('/order', [OrderController::class, 'store']);
+// Additional route for getting all categories in API format
+Route::get('/categories',[ CategoryController :: class ,'getAllCategories']);
+Route::get('/items',[ ItemController :: class ,'getAllItems']);
+Route::get('/item/{id}',[ ItemController :: class ,'getSingleItem']);
+// Route::resource('reviews',[ ReviewController::class ,'getAllReviews']);
+// Route::resource('review/{id}',[ ReviewController::class ,'getSingleReview']);
+Route::resource('reviews', ReviewController::class);
 Route::get('social/google', [LoginGoogle::class, 'redirect']);
 Route::get('social/google/callback', [LoginGoogle::class, 'googleCallback']);

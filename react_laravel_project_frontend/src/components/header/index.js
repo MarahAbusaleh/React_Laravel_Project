@@ -152,6 +152,9 @@ const { currentUser, logout } = useAuthContext();
                                 Blog details fullwidth
                               </Link>
                             </li>
+                            <li><Link onClick={ClickHandler} to="/blog-single-left-sidebar/1">Blog details left
+                              sidebar</Link></li>
+                            <li><Link onClick={ClickHandler} to="/order">Order Form</Link></li>
                           </ul>
                         </li>
                       </ul>

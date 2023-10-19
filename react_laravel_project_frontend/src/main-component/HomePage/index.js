@@ -14,15 +14,14 @@ import Logo from '../../images/logo.png'
 
 
 const HomePage = () => {
-
     return (
         <Fragment>
             <Navbar topbarBlock={'wpo-header-style-2'} Logo={Logo} />
             <Hero />
-            <SearchSection />
-            <About />
+            {/* <SearchSection /> */}
+            {/* <About /> */}
             <FunFact fClass={'wpo-fun-fact-section-s2 section-padding'} />
-            <Destination />
+            {/* <Destination /> */}
             <PricingSection />
             <Testimonial />
             <Footer />
@@ -30,5 +29,4 @@ const HomePage = () => {
         </Fragment>
     )
 };
-
 export default HomePage;

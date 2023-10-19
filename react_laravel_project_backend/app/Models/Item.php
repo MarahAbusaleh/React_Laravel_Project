@@ -15,13 +15,16 @@ class Item extends Model
         'name',
         'image',
         'description',
+        'price',
         'category_id',
     ];
-
+public $timestamps = false;
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
+
+
 
     public function reviews()
     {

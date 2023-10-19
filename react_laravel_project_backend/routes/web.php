@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::resource('user', UserController::class);
+// Route::resource('category', CategoryController::class);
+
+
+// Rama & salam dashboard routes
+Route::resource('categories', CategoryController::class);
+Route::resource('items', ItemController::class);
+// Route::resource('reviews',[ ReviewController::class ,'getAllReviews']);
+// Route::resource('review/{id}',[ ReviewController::class ,'getSingleReview']);
+//Route::resource('reviews', ReviewController::class);
+Route::get('reviews',[ ReviewController::class ,'indexDash']);
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });

@@ -11,33 +11,53 @@
                         <div class="card-body">
                             <h4 class="card-title">Default form</h4>
                             <p class="card-description"> Basic form layout </p>
-                            <form class="forms-sample">
+                            <form class="forms-sample" method="POST" action="{{ route('items.update', ['item' => $item->id]) }}" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT') <!-- Use the PATCH method for updating -->
+                            <div class="form-group">
+                                <label for="name">Item Name</label>
+                                <input type="text" class="form-control" id="name" name="name" value="{{ $item->name }}" placeholder="item Name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">Item Description</label>
+                                <textarea class="form-control" id="description" name="description" placeholder="Item Description">{{ $item->description }}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <input type="text" class="form-control" id="price" name="price" placeholder="Price" value="{{ $item->price }}">
+                            </div>
+
+                            
+
+
+                            <div class="form-group">
+                                <label for="category_id">Category:</label>
+                                <select name="category_id" id="category_id" class="form-control">
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                                </div>
+
+
                                 <div class="form-group">
-                                    <label for="exampleInputUsername1">Username</label>
-                                    <input type="text" class="form-control" id="exampleInputUsername1"
-                                        placeholder="Username">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1"
-                                        placeholder="Password">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputConfirmPassword1">Confirm Password</label>
-                                    <input type="password" class="form-control" id="exampleInputConfirmPassword1"
-                                        placeholder="Password">
-                                </div>
-                                <div class="form-check form-check-flat form-check-primary">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input"> Remember me </label>
-                                </div>
-                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                <button class="btn btn-dark">Cancel</button>
-                            </form>
+                                <label for="image">Item Image</label>
+                                <input type="file" class="form-control-file" id="image" name="image">
+                            </div>
+                            @if ($item->image)
+                            <div class="form-group">
+                                <label>Current Image:</label>
+                                <img src="{{ asset($item->image) }}" alt="Item Image" width="150">
+                            </div>
+                            @endif
+
+                          
+                            
+                            <button type="submit" class="btn btn-primary mr-2">Update</button>
+                            <a href="{{ route('items.index') }}" class="btn btn-dark">Cancel</a>
+                        </form>
                         </div>
                     </div>
                 </div>
