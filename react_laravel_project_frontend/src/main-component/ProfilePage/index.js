@@ -6,6 +6,7 @@ import Footer from '../../components/footer'
 import Scrollbar from '../../components/scrollbar'
 import { connect } from "react-redux";
 import Logo from '../../images/logo2.png'
+import { UserStateContext } from "../Contexts/ContextProvider";
 
 const ProfilePage = () => {
     return (

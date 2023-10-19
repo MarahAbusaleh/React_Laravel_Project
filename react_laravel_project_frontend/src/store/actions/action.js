@@ -6,6 +6,8 @@ import {
   REMOVE_FROM_WISHLIST,
   REMOVE_FROM_COMPARE_LIST,
   ADD_TO_COMPARE,
+  Login,
+  Register
 } from "./type";
 
 export const fetchProductsBegin = () => ({
@@ -76,4 +78,7 @@ export const removeFromCompareList = (product) => (dispatch) => {
     type: REMOVE_FROM_COMPARE_LIST,
     product,
   });
+
+
+  
 };
