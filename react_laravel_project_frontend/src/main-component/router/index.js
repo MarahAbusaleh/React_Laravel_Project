@@ -16,33 +16,40 @@ import ForgotPassword from '../ForgotPassword'
 import PricingPage from '../PricingPage/PricingPage';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import ContactPage from '../ContactPage/ContactPage';
+import { AuthProvider } from "../Contexts/ContextProvider";
+import Google from "../LoginPage/logingoogle";
 
 const AllRoute = () => {
 
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Homepage />} />
-          <Route path='home' element={<Homepage />} />
-          <Route path='about' element={<AboutPage />} />
-          <Route path='search-result' element={<SearchResults />} />
-          <Route path='room-single/:id' element={<RoomSinglePage />} />
-          <Route path='cart' element={<CartPage />} />
-          <Route path='checkout' element={<CheckoutPage />} />
-          <Route path='profile' element={<ProfilePage />} />
-          <Route path='order_received' element={<OrderRecived />} />
-          <Route path='destination' element={<DestinationPage />} />
-          <Route path='destination-single/:id' element={<DestinationSinglePage />} />
-          <Route path='pricing' element={<PricingPage />} />
-          <Route path='404' element={<ErrorPage />} />
-          <Route path='contact' element={<ContactPage />} />
-          <Route path='login' element={<LoginPage />} />
-          <Route path='register' element={<SignUpPage />} />
-          <Route path='forgot-password' element={<ForgotPassword />} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="home" element={<Homepage />} />
+            <Route path="about" element={<AboutPage />} />
+            <Route path="search-result" element={<SearchResults />} />
+            <Route path="room-single/:id" element={<RoomSinglePage />} />
+            <Route path="cart" element={<CartPage />} />
+            <Route path="checkout" element={<CheckoutPage />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="order_received" element={<OrderRecived />} />
+            <Route path="destination" element={<DestinationPage />} />
+            <Route
+              path="destination-single/:id"
+              element={<DestinationSinglePage />}
+            />
+            <Route path="pricing" element={<PricingPage />} />
+            <Route path="404" element={<ErrorPage />} />
+            <Route path="contact" element={<ContactPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<SignUpPage />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="/google" component={<Google/>} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
-
     </div>
   );
 }
