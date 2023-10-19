@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
 use App\DataTables\UserDataTable;
 use App\Models\User;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -12,8 +12,7 @@ class UserController extends Controller
     //This function to return user info as response to API
     public function getUserInfo($user_id)
     {
-        $userInfo = User::findOrFail($user_id);
-        return response()->json($userInfo);
+        //
     }
 
 

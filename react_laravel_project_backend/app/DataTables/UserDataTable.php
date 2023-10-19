@@ -77,7 +77,9 @@ class UserDataTable extends DataTable
     {
         return [
             Column::make('name'),
-            Column::make('email'),
+            Column::make('image'),
+            Column::make('description'),
+            Column::make('categoryName'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

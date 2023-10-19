@@ -40,6 +40,8 @@ const RoomDetails = (props) => {
                                 decisions into a discussion about word choice. So don't be afraid to use lorem ipsum to
                                 keep everyone focused.</p>
                         </div>
+
+
                         <div className="room-details-service">
                             <div className="row">
                                 <div className="room-details-item">
@@ -90,6 +92,8 @@ const RoomDetails = (props) => {
                                 </div>
                             </div>
                         </div>
+
+                        
                         <div className="pricing-area">
                             <div className="room-title">
                                 <h2>Pricing Plans</h2>

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('image');
             $table->text('description');
-            $table->text('uses');
         });
 
         Schema::enableForeignKeyConstraints();
