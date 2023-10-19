@@ -57,6 +57,7 @@ function Profile() {
     };
 
     useEffect(() => {
+        console.log('test');
         getUserInfo();
     }, []);
 
