@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 /*---------------------------------------- Marah Routes ----------------------------------------*/
 Route::get('getUserInfo/{id}', [UserController::class, 'getUserInfo']);
 Route::put('updateUserPass/{id}', [UserController::class, 'updateUserPass']);
+
+
+Route::post('/order', [OrderController::class, 'store']);
+Route::get('/order', [OrderController::class, 'store']);
