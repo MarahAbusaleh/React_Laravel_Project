@@ -18,17 +18,17 @@ class ReviewController extends Controller
     public function getSingleReview($id)
     {
         $item = Item::find($id);
-    
+
         if (!$item) {
             return response()->json(['error' => 'Item not found'], 404);
         }
-    
+
         $reviews = Review::where('item_id', $id)->with('user')->get();
-        
-    
+
+
         return response()->json($reviews);
     }
-    
+
 
     // This function adds a new review that comes from a React page as a response to the API.
     public function addNewReview(Request $request)
