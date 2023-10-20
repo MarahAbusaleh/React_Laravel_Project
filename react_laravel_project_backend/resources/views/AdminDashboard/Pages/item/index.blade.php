@@ -6,7 +6,15 @@
         <div class="content-wrapper">
             <div class="row">
                 <div class="col-md-12 ">
-                <a href="{{ route('items.create') }}"><button>Add Item</button></a>
+                    @include('sweetalert::alert')
+                    <br>
+                    <center>
+                        <a href="{{ route('items.create') }}">
+                            <button class="btn btn-primary mr-2">
+                                <i class='fas fa-plus'></i>Add Item
+                            </button>
+                        </a>
+                    </center>
                     {!! $dataTable->table() !!}
                 </div>
             </div>

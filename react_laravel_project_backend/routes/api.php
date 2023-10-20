@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Http\Request;
@@ -17,39 +19,39 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\LoginGoogle;
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
-                ->middleware('guest')
-                ->name('register');
+    ->middleware('guest')
+    ->name('register');
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
-                ->middleware('guest')
-                ->name('login');
+    ->middleware('guest')
+    ->name('login');
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
-                ->middleware('guest')
-                ->name('password.email');
+    ->middleware('guest')
+    ->name('password.email');
 
 Route::post('/reset-password', [NewPasswordController::class, 'store'])
-                ->middleware('guest')
-                ->name('password.store');
+    ->middleware('guest')
+    ->name('password.store');
 
 Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)
-                ->middleware(['auth', 'signed', 'throttle:6,1'])
-                ->name('verification.verify');
+    ->middleware(['auth', 'signed', 'throttle:6,1'])
+    ->name('verification.verify');
 
 Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-                ->middleware(['auth', 'throttle:6,1'])
-                ->name('verification.send');
+    ->middleware(['auth', 'throttle:6,1'])
+    ->name('verification.send');
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-                ->middleware('auth')
-                ->name('logout');
+    ->middleware('auth')
+    ->name('logout');
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
 // Additional route for getting all categories in API format
-Route::get('/categories',[ CategoryController :: class ,'getAllCategories']);
+Route::get('/categories', [CategoryController::class, 'getAllCategories']);
 // Route::resource('reviews',[ ReviewController::class ,'getAllReviews']);
 // Route::resource('review/{id}',[ ReviewController::class ,'getSingleReview']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -59,16 +61,28 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 /*---------------------------------------- Marah Routes ----------------------------------------*/
 Route::get('getUserInfo/{id}', [UserController::class, 'getUserInfo']);
 Route::put('updateUserPass/{id}', [UserController::class, 'updateUserPass']);
+Route::put('updateUserInfo/{id}', [UserController::class, 'updateUserInfo']);
+Route::post('updateUserImage/{id}', [UserController::class, 'updateUserImage']);
+
+Route::post('addNewContactMessage', [ContactController::class, 'addNewContactMessage']);
+
+Route::get('getTheLastUserOrder/{id}', [OrderController::class, 'getTheLastUserOrder']);
+/*-------------------------------------- Marah Routes End --------------------------------------*/
 
 
 Route::post('/order', [OrderController::class, 'store']);
 Route::get('/order', [OrderController::class, 'store']);
 // Additional route for getting all categories in API format
-Route::get('/categories',[ CategoryController :: class ,'getAllCategories']);
-Route::get('/items',[ ItemController :: class ,'getAllItems']);
-Route::get('/item/{id}',[ ItemController :: class ,'getSingleItem']);
+Route::get('/categories', [CategoryController::class, 'getAllCategories']);
+Route::get('/items', [ItemController::class, 'getAllItems']);
+Route::get('/item/{id}', [ItemController::class, 'getSingleItem']);
 // Route::resource('reviews',[ ReviewController::class ,'getAllReviews']);
 // Route::resource('review/{id}',[ ReviewController::class ,'getSingleReview']);
-Route::resource('reviews', ReviewController::class);
+Route::get('/review/{id}',[ ReviewController::class ,'getSingleReview']);
+Route::post('/review/{id}',[ ReviewController::class ,'addNewReview']);
+
+
+
+
 Route::get('social/google', [LoginGoogle::class, 'redirect']);
 Route::get('social/google/callback', [LoginGoogle::class, 'googleCallback']);

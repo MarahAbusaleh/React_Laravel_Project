@@ -9,7 +9,7 @@ import shape from "../../images/hotel.png"
 import { useAuthContext } from "../../main-component/Contexts/ContextProvider";
 
 const Header = (props) => {
-const { currentUser, logout } = useAuthContext();
+  const { currentUser, logout } = useAuthContext();
   const [menuActive, setMenuState] = useState(false);
   const [cartActive, setcartState] = useState(false);
   const SubmitHandler = (e) => {
@@ -228,29 +228,37 @@ const { currentUser, logout } = useAuthContext();
                 <div className="header-right">
                   <div className="header-search-form-wrapper">
                     <div className="cart-search-contact">
+                      <Link to="/profile">
+                        <button className="search-toggle-btn">
+                          <i className={`fi ${menuActive ? "ti-close" : "fi flaticon-user"}`}></i>
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="header-search-form-wrapper">
+                    <div className="cart-search-contact">
                       {currentUser ? (
-                          <li className="menu-item-has-children">
-                              <ul className="sub-menu">  <Link to="/profile">
+                        <li className="menu-item-has-children">
+                          <ul className="sub-menu">  <Link to="/profile">
                             <button className="search-toggle-btn">
                               <i
-                                className={`fi ${
-                                  menuActive ? "ti-close" : "fi flaticon-user"
-                                }`}
+                                className={`fi ${menuActive ? "ti-close" : "fi flaticon-user"
+                                  }`}
                               ></i>
                             </button>
                           </Link>
-                          <Link>
+                            <Link>
                               {" "}
                               <button onClick={logout} to="/login">
                                 logout
                               </button>
                             </Link></ul>
-                            
-                          </li>
-                        
-                       
+
+                        </li>
+
+
                       ) : (
-                       
+
                         <>
                         </>
                       )}
@@ -263,15 +271,13 @@ const { currentUser, logout } = useAuthContext();
                         className="search-toggle-btn"
                       >
                         <i
-                          className={`fi ${
-                            menuActive ? "ti-close" : "fi flaticon-search"
-                          }`}
+                          className={`fi ${menuActive ? "ti-close" : "fi flaticon-search"
+                            }`}
                         ></i>
                       </button>
                       <div
-                        className={`header-search-form ${
-                          menuActive ? "header-search-content-toggle" : ""
-                        }`}
+                        className={`header-search-form ${menuActive ? "header-search-content-toggle" : ""
+                          }`}
                       >
                         <form onSubmit={SubmitHandler}>
                           <div>
@@ -298,9 +304,8 @@ const { currentUser, logout } = useAuthContext();
                       <span className="cart-count">{carts.length}</span>
                     </button>
                     <div
-                      className={`mini-cart-content ${
-                        cartActive ? "mini-cart-content-toggle" : ""
-                      }`}
+                      className={`mini-cart-content ${cartActive ? "mini-cart-content-toggle" : ""
+                        }`}
                     >
                       <button
                         className="mini-cart-close"

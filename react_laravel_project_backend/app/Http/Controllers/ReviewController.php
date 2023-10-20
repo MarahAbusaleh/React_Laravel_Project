@@ -19,16 +19,17 @@ class ReviewController extends Controller
     public function getSingleReview($id)
     {
         $item = Item::find($id);
-    
+
         if (!$item) {
             return response()->json(['error' => 'Item not found'], 404);
         }
-    
-        $reviews = Review::where('item_id', $id)->get();
-    
+
+        $reviews = Review::where('item_id', $id)->with('user')->get();
+
+
         return response()->json($reviews);
     }
-    
+
 
     // This function adds a new review that comes from a React page as a response to the API.
     public function addNewReview(Request $request)
@@ -37,10 +38,10 @@ class ReviewController extends Controller
             'user_id' => 'required|integer',
             'item_id' => 'required|integer',
             'comment' => 'required|string',
-            'time' => 'required|date',
+            'date' => 'required|date',
         ]);
 
-        $review = Review::create($data);
+        $review = Review::create($data)->with('user')->get();
 
         return response()->json($review, 201);
     }
@@ -52,10 +53,13 @@ class ReviewController extends Controller
         return response()->json($reviews, 200);
     }
 
-      public function indexDash(ReviewDataTable $dataTables)
+
+    public function indexDash(ReviewDataTable $dataTables)
     {
         return $dataTables->render('AdminDashboard.Pages.review.index');
     }
+
+
 
     // This function deletes a specific review.
     public function destroy(Review $review)

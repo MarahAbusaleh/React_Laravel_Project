@@ -9,14 +9,15 @@
                 <div class="col-md-12 ">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Default form</h4>
-                            <p class="card-description"> Basic form layout </p>
-                            <form class="forms-sample" method="POST" action="{{ route('categories.store') }}" enctype="multipart/form-data">
+                            <h4 class="card-title">Add Category</h4>
+                            <form class="forms-sample" method="POST" action="{{ route('categories.store') }}"
+                                enctype="multipart/form-data">
                                 @csrf <!-- Add a CSRF token for security -->
                                 @method('post')
                                 <div class="form-group">
                                     <label for="name">Category Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Category Name">
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="Category Name">
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Category Description</label>

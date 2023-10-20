@@ -7,10 +7,14 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    //This function to return all user orders as response to API
-    public function getAllUserOrders($user_id)
+    //This function to return the last user order as response to API
+    public function getTheLastUserOrder($user_id)
     {
-        //
+        $userOrder = Order::where('user_id', $user_id)
+            ->latest('date')
+            ->first();
+
+        return response()->json($userOrder);
     }
 
 
