@@ -63,7 +63,7 @@ const DestinationSinglePage = (props) => {
                 </div>
                 {/* Include Reviews component here */}
                 <Reviews />
-                <div className="room-review">
+                {/* <div className="room-review">
                   <div className="room-title">
                     <h2>Room Reviews</h2>
                   </div>
@@ -133,7 +133,9 @@ const DestinationSinglePage = (props) => {
                       </p>
                     </div>
                   </div>
-                </div>
+                </div> */}
+
+
                 <div className="add-review">
                   <div className="room-title">
                     <h2>Add Review</h2>

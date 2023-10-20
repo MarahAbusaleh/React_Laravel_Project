@@ -13318,3 +13318,10 @@ label {
   display: inline-block;
   margin-right: 10px;
 }
+
+/* ouers */
+
+.videoHeader {
+    height: 30%;
+    width: 100%;
+}

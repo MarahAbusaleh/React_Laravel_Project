@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CategoryController;
-
-
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\NewPasswordController;
@@ -79,7 +77,7 @@ Route::get('/item/{id}', [ItemController::class, 'getSingleItem']);
 // Route::resource('reviews',[ ReviewController::class ,'getAllReviews']);
 // Route::resource('review/{id}',[ ReviewController::class ,'getSingleReview']);
 Route::get('/review/{id}',[ ReviewController::class ,'getSingleReview']);
-Route::post('/review/{id}',[ ReviewController::class ,'addNewReview']);
+Route::post('/review',[ ReviewController::class ,'addNewReview']);
 
 
 
