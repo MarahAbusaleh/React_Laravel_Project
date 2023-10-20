@@ -24,14 +24,22 @@ class ItemDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('items.edit', $query->id) . "' class='btn btn-success'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('items.destroy', $query->id) . "' class='btn btn-danger my-2 delete-item'><i class='fas fa-trash-alt'></i></a>";
+                $editBtn = "<a href='" . route('items.edit', $query->id) . "' class='btn btn-success' style='padding: 5px; vertical-align: middle; margin-right: 10px'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('items.destroy', $query->id) . "' class='btn btn-danger my-2 delete-item' style='padding: 5px; vertical-align: middle'><i class='fas fa-trash-alt'></i></a>";
 
                 return $editBtn . $deleteBtn;
             })
-            ->rawColumns(['action'])
             ->addColumn('image', function ($query) {
                 return "<img width='100px' src='" . asset($query->image) . "'></img>";
+            })
+            ->addColumn('category name', function ($query) {
+                if ($query->category) {
+                    return $query->category->name;
+                }
+            })
+
+            ->addColumn('price', function ($query) {
+                return $query->price . ' JOD';
             })
             ->rawColumns(['action', 'image'])
             ->setRowId('id');
@@ -56,20 +64,20 @@ class ItemDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('item-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('item-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -84,13 +92,13 @@ class ItemDataTable extends DataTable
             Column::make('image'),
             Column::make('description'),
             Column::make('price'),
-            // Column::make('category_name'),
+            Column::make('category name'),
             Column::computed('action')
-                    ->exportable(false)
-                    ->printable(false)
-                    ->width(60)
-                    ->addClass('text-center'),
-            
+                ->exportable(false)
+                ->printable(false)
+                ->width(60)
+                ->addClass('text-center'),
+
             // Column::make('add your columns'),
             // Column::make('created_at'),
             // Column::make('updated_at'),

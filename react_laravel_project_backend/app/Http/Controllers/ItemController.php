@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use App\DataTables\ItemDataTable;
-use App\DataTables\CategoryDataTable;
 use App\Models\Category;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class ItemController extends Controller
 {
@@ -51,10 +52,24 @@ class ItemController extends Controller
             'price' => 'required|numeric', 
         ]);
 
-        Item::create($request->all());
+        $relativeImagePath = null;
+        if ($request->hasFile('image')) {
+            $newImageName1 = uniqid() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
+            $relativeImagePath = 'assets/images/' . $newImageName1;
+            $request->file('image')->move(public_path('assets/images'), $newImageName1);
+        }
 
-        return redirect()->route('items.index')
-            ->with('success', 'Item created successfully');
+        Item::create([
+            'name' => $request->input('name'),
+            'image' => $relativeImagePath,
+            'description' => $request->input('description'),
+            'category_id' => $request->input('category_id'),
+            'price' => $request->input('price'),
+        ]);
+
+        Alert::success('success', 'Item Added Successfully');
+
+        return redirect()->route('items.index');
     }
 
     public function show(Item $item)
@@ -78,17 +93,36 @@ class ItemController extends Controller
             'price' => 'required|numeric', 
         ]);
 
-        $item->update($request->all());
+        $data = $request->except(['_token', '_method']);
 
-        return redirect()->route('items.index')
-            ->with('success', 'Item updated successfully');
+        $relativeImagePath = null;
+        if ($request->hasFile('image')) {
+            $newImageName = uniqid() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
+            $relativeImagePath = 'assets/images/' . $newImageName;
+            $request->file('image')->move(public_path('assets/images'), $newImageName);
+            $data['image'] = $relativeImagePath;
+        }
+
+        Item::where('id', $item->id)->update($data);
+
+        Alert::success('success', 'Item Updated Successfully');
+
+        return redirect()->route('items.index');
     }
 
-    public function destroy(Item $item)
+    public function destroy($id)
     {
+        $item = Item::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('items.index')
-            ->with('success', 'Item deleted successfully');
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
+
+    // public function destroy(Item $item)
+    // {
+    //     $item->delete();
+
+    //     return redirect()->route('items.index')
+    //         ->with('success', 'Item deleted successfully');
+    // }
 }

@@ -24,12 +24,14 @@ class UserDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('item.edit', $query->id) . "' class='btn btn-success'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('item.destroy', $query->id) . "' class='btn btn-danger my-2 delete-item'><i class='fas fa-trash-alt'></i></a>";
+                $deleteBtn = "<a href='" . route('user.destroy', $query->id) . "' class='btn btn-danger my-2 delete-item' style='padding: 5px; vertical-align: middle;'><i class='fas fa-trash-alt'></i></a>";
 
-                return $editBtn . $deleteBtn;
+                return  $deleteBtn;
             })
-            ->rawColumns(['action'])
+            ->addColumn('image', function ($query) {
+                return "<img width='100px' src='" . asset($query->image) . "'></img>";
+            })
+            ->rawColumns(['action', 'image'])
             ->setRowId('id');
     }
 
@@ -78,8 +80,8 @@ class UserDataTable extends DataTable
         return [
             Column::make('name'),
             Column::make('image'),
-            Column::make('description'),
-            Column::make('categoryName'),
+            Column::make('email'),
+            Column::make('phone'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
