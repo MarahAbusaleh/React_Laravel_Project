@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class OrderController extends Controller
 {
     //This function to return the last user order as response to API
-    public function getTheLastUserOrder($user_id)
+    public function getTheLastUserOrder($user_id): JsonResponse
     {
         $userOrder = Order::where('user_id', $user_id)
             ->latest('date')
+            ->with('item')
+            ->with('item.category')
             ->first();
+
+        // $category = 
 
         return response()->json($userOrder);
     }

@@ -74,12 +74,13 @@ Route::post('/order', [OrderController::class, 'store']);
 Route::get('/order', [OrderController::class, 'store']);
 // Additional route for getting all categories in API format
 Route::get('/categories', [CategoryController::class, 'getAllCategories']);
+Route::get('/category/{id}', [CategoryController::class, 'getCategory']);
 Route::get('/items', [ItemController::class, 'getAllItems']);
 Route::get('/item/{id}', [ItemController::class, 'getSingleItem']);
 // Route::resource('reviews',[ ReviewController::class ,'getAllReviews']);
 // Route::resource('review/{id}',[ ReviewController::class ,'getSingleReview']);
-Route::get('/review/{id}',[ ReviewController::class ,'getSingleReview']);
-Route::post('/review/{id}',[ ReviewController::class ,'addNewReview']);
+Route::get('/review/{id}', [ReviewController::class, 'getSingleReview']);
+Route::post('/review/{id}', [ReviewController::class, 'addNewReview']);
 
 
 

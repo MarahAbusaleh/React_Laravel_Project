@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import axios from "axios";
+// import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
+import axios from '../../main-component/axios/axios';
+import { throttle } from 'lodash';
 
 function Profile() {
     const navigate = useNavigate();
@@ -29,6 +31,11 @@ function Profile() {
         setEditableField(field);
     };
 
+    const [itemData, setItemData] = useState({
+        item_name: '',
+        cat_name: ''
+    });
+
     const [userData, setUserData] = useState({
         id: '',
         name: '',
@@ -40,12 +47,12 @@ function Profile() {
     });
     const [userPass, setUserPass] = useState('');
 
-    let user_id = localStorage.getItem('user_id');;
+    let user_id = 1;
 
     /*------------------------------------------- getUserInfo API -------------------------------------------*/
     const getUserInfo = () => {
         axios
-            .get(`http://localhost:8000/api/getUserInfo/${user_id}`)
+            .get(`/api/getUserInfo/${user_id}`)
             .then((response) => {
                 setUserData(response.data);
 
@@ -93,10 +100,15 @@ function Profile() {
 
     useEffect(() => {
         if (userPass !== '') {
-            const updateUserPass = () => {
+            const updateUserPass = async (param) => {
+                // param.preventDefault();
+                const csrfResponse = await axios.get("/get-csrf-token");
+                const csrfToken = csrfResponse.data.csrf_token;
 
-                axios
-                    .put(`http://127.0.0.1:8000/api/updateUserPass/${userData.id}`, {
+                axios.defaults.headers.common["XSRF-TOKEN"] = csrfToken;
+
+                await axios
+                    .put(`/api/updateUserPass/${userData.id}`, {
                         password: userPass,
                     })
                     .then((response) => {
@@ -131,16 +143,21 @@ function Profile() {
         }
     };
 
-    const handleEditInfo = (e) => {
-        e.preventDefault();
-        console.log(userData);
+    const handleEditInfo = async (param) => {
+        param.preventDefault();
+        const csrfResponse = await axios.get("/get-csrf-token");
+        const csrfToken = csrfResponse.data.csrf_token;
+
+        axios.defaults.headers.common["XSRF-TOKEN"] = csrfToken;
+
+        // console.log(userData);
 
         if (editableField === 'image') {
             const formData = new FormData();
-            formData.append('image', e.target.elements.image.files[0]);
+            formData.append('image', param.target.elements.image.files[0]);
 
-            axios
-                .post(`http://127.0.0.1:8000/api/updateUserImage/${userData.id}`, formData, {
+            await axios
+                .post(`/api/updateUserImage/${userData.id}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
@@ -153,8 +170,8 @@ function Profile() {
                 });
         }
 
-        axios
-            .put(`http://127.0.0.1:8000/api/updateUserInfo/${userData.id}`, userData)
+        await axios
+            .put(`/api/updateUserInfo/${userData.id}`, userData)
             .then((response) => {
                 console.log('User information updated successfully');
             })
@@ -172,33 +189,51 @@ function Profile() {
         setEditableField(null);
     }
 
+    let itemId = 0;
+    // let item_name = '';
+    let catId = 0;
+    // let cat_name = '';
 
+    const getTheLastUserOrder = async () => {
 
-    const getTheLastUserOrder = () => {
+        await axios
+            .get(`/api/getTheLastUserOrder/${user_id}`)
+            .then((response) => {
+                console.log(response.data.item);
+                itemId = response.data.item_id;
 
-        // axios
-        //     .get(`http://127.0.0.1:8000/api/getTheLastUserOrder/${userData.id}`)
-        //     .then((response) => {
+                setUserOrder({
+                    item_id: response.data.item_id,
+                    date: response.data.date,
+                    time: response.data.time,
+                    location: response.data.location,
+                    notes: response.data.notes,
+                    editing: response.data.editing,
+                    totalPrice: response.data.totalPrice
+                });
+            })
 
-        //         console.log(response.data);
-        //         setUserOrder({
-        //             item_id: response.data.item_id,
-        //             date: response.data.date,
-        //             time: response.data.time,
-        //             location: response.data.location,
-        //             notes: response.data.notes,
-        //             editing: response.data.editing,
-        //             totalPrice: response.data.totalPrice
-        //         });
-        //         console.log(userOrder);
-        //     })
+        await axios
+            .get(`/api/item/${itemId}`)
+            .then((response) => {
+
+                itemData.item_name = response.data.name;
+                catId = response.data.category_id;
+            })
+
+        await axios
+            .get(`/api/category/${catId}`)
+            .then((response) => {
+
+                itemData.cat_name = response.data.name;
+            })
 
     }
+    const ThrottledGetTheLastUserOrder = throttle(getTheLastUserOrder, 1000);
 
-    // getTheLastUserOrder();
     useEffect(() => {
-        getTheLastUserOrder();
-    }, [userOrder]);
+        ThrottledGetTheLastUserOrder(user_id, setUserOrder);
+    }, [user_id]);
 
 
     return (
@@ -389,31 +424,31 @@ function Profile() {
                                                                     <div className="col-xl-5 col-lg-8 col-md-8 col-12 offset-xl-6 offset-lg-4 offset-md-2" style={{ marginLeft: '280px' }}>
                                                                         <div className="wpo-about-content">
                                                                             <div className="about-title">
-                                                                                <span>Your Booking</span>
-                                                                                <h2>Drone Name</h2>
+                                                                                <span>{itemData.item_name}</span>
+                                                                                <h2>{itemData.cat_name}</h2>
                                                                             </div>
                                                                             <div className="wpo-about-content-inner">
                                                                                 <div className="about-info-wrap">
                                                                                     <div className="about-info-left">
                                                                                         <p>Date / Time</p>
                                                                                         <p>{userOrder.date} / {userOrder.time}</p>
-                                                                                        <ul>
+                                                                                        {/* <ul>
                                                                                             <li><i className="fa fa-star" aria-hidden="true"></i></li>
                                                                                             <li><i className="fa fa-star" aria-hidden="true"></i></li>
                                                                                             <li><i className="fa fa-star" aria-hidden="true"></i></li>
                                                                                             <li><i className="fa fa-star" aria-hidden="true"></i></li>
                                                                                             <li><span><i className="fa fa-star" aria-hidden="true"></i></span></li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                    <div className="about-info-right">
-                                                                                        <p>Price</p>
-                                                                                        <h3>{userOrder.totalPrice}</h3>
+                                                                                        </ul> */}
                                                                                     </div>
                                                                                     <div className="about-info-right">
                                                                                         <p>Location</p>
                                                                                         <h3>{userOrder.location}</h3>
                                                                                     </div>
-                                                                                    <Link className="theme-btn" to="/room">Print</Link>
+                                                                                    <div className="about-info-right">
+                                                                                        <p>Price</p>
+                                                                                        <h3>{userOrder.totalPrice}</h3>
+                                                                                    </div>
+                                                                                    <Link className="theme-btn" to="/pdf">Print</Link>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

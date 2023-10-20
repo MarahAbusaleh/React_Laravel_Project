@@ -2,7 +2,8 @@
   display: flex;
   min-height: 100vh;
   padding: 80px 0;
-  background: #f9f9f9;
+  background: url("./bg3.jfif") !important;
+  background-size: cover;
 
   .loginForm {
     width: 500px;
@@ -12,7 +13,7 @@
     padding: 70px 50px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-    @media(max-width:445px){
+    @media (max-width: 445px) {
       padding: 70px 15px;
     }
 
@@ -102,7 +103,7 @@
       width: 320px;
       margin: 20px auto 0;
 
-      @media(max-width:445px){
+      @media (max-width: 445px) {
         width: 185px;
       }
 
@@ -129,7 +130,7 @@
         }
 
         &.linkedin {
-          background: #0077B5;
+          background: #0077b5;
         }
       }
     }
@@ -153,16 +154,16 @@
   }
 }
 
-.btn-area{
+.btn-area {
   display: flex;
   justify-content: center;
   margin-top: 15px;
 
-  .admin{
+  .admin {
     border-right: 1px solid #c2b133;
     padding-right: 10px;
   }
-  .vendor{
+  .vendor {
     border-right: 1px solid #c2b133;
     padding-right: 10px;
   }
@@ -173,13 +174,12 @@
     line-height: 16px;
     cursor: pointer;
     font-size: 15px;
-    @media(max-width:445px){
+    @media (max-width: 445px) {
       font-size: 12px;
     }
   }
 }
 
-
-.chCardBody{
+.chCardBody {
   padding: 20px;
 }

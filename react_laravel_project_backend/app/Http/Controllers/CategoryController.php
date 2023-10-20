@@ -19,6 +19,12 @@ class CategoryController extends Controller
         return response()->json(['categories' => $categories]);
     }
 
+    public function getCategory($id)
+    {
+        $category = Category::findOrFail($id);
+        return response()->json($category);
+    }
+
     public function index(CategoryDataTable $dataTables)
     {
         return $dataTables->render('AdminDashboard.Pages.category.index');

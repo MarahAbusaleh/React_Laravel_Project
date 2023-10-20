@@ -61,7 +61,8 @@ const SignUpPage = () => {
   };
   return (
     <Grid className="loginWrapper">
-      <Grid className="loginForm">
+      <div className="loginForm " style={{ backgroundImage: `url("./bg.jpg")` }}
+      >
         <h2>Signup</h2>
         <p>Signup your account</p>
 
@@ -176,7 +177,7 @@ const SignUpPage = () => {
         <div className="shape-img">
           <i className="fi flaticon-honeycomb"></i>
         </div>
-      </Grid>
+      </div>
     </Grid>
   );
 };

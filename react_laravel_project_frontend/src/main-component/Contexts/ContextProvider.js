@@ -23,12 +23,12 @@ export const AuthProvider = ({ children }) => {
     const { data } = await axiosClient.get("/api/user");
     setCurrentUser(data);
     console.log(data.id);
-        localStorage.setItem("user_id", JSON.stringify(data.id));
+    localStorage.setItem("user_id", JSON.stringify(data.id));
 
   };
   const login = async ({ data }) => {
     await csrf();
-     axiosClient
+    axiosClient
       .post("/login", data)
       .then((response) => {
         console.log(response);
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  
+
   const register = async ({ data }) => {
     await csrf();
     axiosClient
@@ -69,13 +69,13 @@ export const AuthProvider = ({ children }) => {
       })
   };
 
-const logout = () => {
-  axiosClient.post("/logout").then(() => {
-  localStorage.removeItem('user');
-    setCurrentUser(null);
-    localStorage.removeItem('user_id');
-  });
-}
+  const logout = () => {
+    axiosClient.post("/logout").then(() => {
+      localStorage.removeItem('user');
+      setCurrentUser(null);
+      localStorage.removeItem('user_id');
+    });
+  }
   return (
     <AuthContext.Provider
       value={{ login, register, logout, currentUser, error, getUser }}

@@ -23,11 +23,6 @@ Route::resource('user', UserController::class);
 
 /*---------------------------------------- Marah Routes ----------------------------------------*/
 
-// Route::get('/', function () {
-//     return view('AdminDashboard.Pages.login');
-// });
-
-
 Route::get('/', [AdminController::class, 'index']);
 
 Route::get('/login', [AdminController::class, 'index'])->name('login');
@@ -53,6 +48,10 @@ Route::resource('items', ItemController::class);
 // Route::resource('review/{id}',[ ReviewController::class ,'getSingleReview']);
 //Route::resource('reviews', ReviewController::class);
 Route::get('reviews', [ReviewController::class, 'indexDash']);
+
+Route::get('/get-csrf-token', function () {
+    return response()->json(['token' => csrf_token()]);
+});
 
 
 require __DIR__ . '/auth.php';

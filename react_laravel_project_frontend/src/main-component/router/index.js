@@ -20,6 +20,7 @@ import OrderForm from '../../components/order/OrderForm';
 import Checkout from '../../components/checkout/index';
 import { AuthProvider } from "../Contexts/ContextProvider";
 import Google from "../LoginPage/logingoogle";
+import PDF from "../../components/Profile/pdf";
 
 const AllRoute = () => {
 
@@ -36,13 +37,14 @@ const AllRoute = () => {
             <Route path="cart" element={<CartPage />} />
             <Route path="checkout" element={<CheckoutPage />} />
             <Route path="profile" element={<ProfilePage />} />
+            <Route path="pdf" element={<PDF />} />
             <Route path="order_received" element={<OrderRecived />} />
             {/* <Route path="destination" element={<DestinationPage />} /> */}
             {/* <Route
               path="destination-single/:id"
               element={<DestinationSinglePage />}
             /> */}
-            
+
             <Route path="destination/:id" element={<DestinationPage />} />
             <Route
               path="destination-single/:id"
@@ -55,9 +57,9 @@ const AllRoute = () => {
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<SignUpPage />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="/google" component={<Google/>} />
+            <Route path="/google" component={<Google />} />
             <Route path="order" element={<OrderForm />} />
-          <Route path="payment" element={<Checkout />} />
+            <Route path="payment" element={<Checkout />} />
 
           </Routes>
         </AuthProvider>
