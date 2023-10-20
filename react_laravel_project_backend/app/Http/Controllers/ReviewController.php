@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\ReviewDataTable;
 use App\Models\Item;
 use App\Models\Review;
 use Illuminate\Http\Request;
@@ -24,7 +23,8 @@ class ReviewController extends Controller
             return response()->json(['error' => 'Item not found'], 404);
         }
 
-        $reviews = Review::where('item_id', $id)->get();
+        $reviews = Review::where('item_id', $id)->with('user')->get();
+
 
         return response()->json($reviews);
     }
@@ -37,10 +37,10 @@ class ReviewController extends Controller
             'user_id' => 'required|integer',
             'item_id' => 'required|integer',
             'comment' => 'required|string',
-            'time' => 'required|date',
+            'date' => 'required|date',
         ]);
 
-        $review = Review::create($data);
+        $review = Review::create($data)->with('user')->get();
 
         return response()->json($review, 201);
     }
@@ -50,11 +50,6 @@ class ReviewController extends Controller
     {
         $reviews = Review::all();
         return response()->json($reviews, 200);
-    }
-
-    public function indexDash(ReviewDataTable $dataTables)
-    {
-        return $dataTables->render('AdminDashboard.Pages.review.index');
     }
 
     // This function deletes a specific review.
