@@ -20,6 +20,7 @@ const OrderForm = () => {
     totalprice: "",
     editing: false,
   });
+  const user_id = localStorage.getItem('user_id');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -49,8 +50,8 @@ const OrderForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://64db19d6593f57e435b070c9.mockapi.io/order",
-        // "http://localhost:8000/api/order",
+        // "https://64db19d6593f57e435b070c9.mockapi.io/order",
+        "http://localhost:8000/api/order",
         formData
       );
       dispatch(addOrder(response.data.order));
@@ -86,16 +87,15 @@ const OrderForm = () => {
                     onChange={handleInputChange}
                   />
                 </div> */}
-                    {/* <div className="form-group">
-                  <label>User ID:</label>
+                    <div className="form-group">
                   <input
                     className="form-control"
-                    type="text"
+                    type="hidden"
                     name="user_id"
                     value={user_id} // Replace 'user_id' with the actual variable holding the user's ID
-                    readOnly // Make it read-only since it's auto-filled
+                    
                   />
-                </div> */}
+                </div>
 
                     {/* <div className="form-group">
                   <label>Item ID:</label>

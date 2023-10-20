@@ -1,69 +1,28 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Navigation, Pagination, A11y } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+ //import React from "react";
+import { Link } from "react-router-dom";
+import React, { useRef, useEffect } from "react";
 
-import hero1 from '../../images/slider/slide-1.jpg'
-import hero2 from '../../images/slider/slide-2.jpg'
-import hero3 from '../../images/slider/slide-3.jpg'
+const Hero = () => {
+  const videoRef = useRef(null);
 
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.autoplay = true;
+      videoRef.current.loop = true;
+    }
+  }, []);
 
-const sliderItems = [
-    {
-        sImg: hero1
-    },
-    {
-        sImg: hero2
-    },
-    {
-        sImg: hero3
-    },
-]
-
-const Hero = (props) => {
-    return (
-        <section className="wpo-hero-slider">
-            <div className="swiper-container">
-                <div className="swiper-wrapper">
-                    <Swiper
-                        // install Swiper modules
-                        modules={[Navigation, Pagination, A11y]}
-                        spaceBetween={0}
-                        slidesPerView={1}
-                        pagination={{ clickable: true }}
-                        loop={true}
-                        speed={1800}
-                        parallax={true}
-                        navigation
-                    >
-                        {sliderItems.map((item, slr) => (
-                            <SwiperSlide key={slr}>
-                                <div className="swiper-slide" style={{ backgroundImage: `url(${item.sImg})` }}>
-                                    <div className="slide-inner slide-bg-image">
-                                        <div className="container-fluid">
-                                            <div className="slide-content">
-                                                <div data-swiper-parallax="300" className="slide-title">
-                                                    <h2>Find Your Perfect Place To Stay</h2>
-                                                </div>
-                                                <div className="clearfix"></div>
-                                                <div data-swiper-parallax="500" className="slide-btns">
-                                                    <Link to="/room" className="theme-btn">Book Now</Link>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </SwiperSlide>
-                        ))}
-                        ...
-                    </Swiper>
-                </div>
-            </div>
-        </section>
-    )
-}
+  return (
+    <section>
+      <video ref={videoRef} width="100%" height="30%">
+        <source
+          src="https://dji-official-fe.djicdn.com/reactor/assets/_next/static/videos/a86ba760-3f8c-42b4-bbd6-c7c31d79c248.webm"
+          type="video/webm"
+        />
+      </video>
+    </section>
+  );
+};
 
 export default Hero;

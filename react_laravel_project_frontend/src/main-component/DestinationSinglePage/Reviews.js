@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
+import axios from "../axios/axios";
 
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-//import Swal from "sweetalert2";
 
 function Reviews() {
-  let { id } = useParams();
+  const { id } = useParams();
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [commentText, setCommentText] = useState(""); // State to capture user's comment
 
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/api/review/${id}`)
+      .get(`/api/review/${id}`)
       .then((response) => {
         setReviews(response.data);
         setLoading(false);
@@ -26,87 +26,75 @@ function Reviews() {
       });
   }, [id]);
 
-  const userData = localStorage.getItem("user");
-  const user = JSON.parse(userData);
+  const comment = async (param) => {
+    param.preventDefault();
+    const userData = localStorage.getItem("user_id");
+    //const user = JSON.parse(userData);
+    const formData = new FormData();
+    formData.append("comment", commentText);
+    formData.append("user_id", userData);
+    formData.append("item_id", id);
+    console.log(formData);
+    const csrfResponse = await axios.get("/get-csrf-token");
+    const csrfToken = csrfResponse.data.csrf_token;
 
-  const comment = (e) => {
-    e.preventDefault();
-    const userData = localStorage.getItem("user");
-    const user = JSON.parse(userData);
-    axios
-      .post("https://651db05044e393af2d5a346e.mockapi.io/review", {
-       // comment: commentText,  Send the comment text
-        yacht_id: id,
-        username: user.name,
-        image: user.image,
-        userId: user.id,
-      })
-      .then((response) => {
-        // Handle success, reset state variables here
-       // setCommentText("");  Clear the comment text after posting
-      })
+    axios.defaults.headers.common["XSRF-TOKEN"] = csrfToken;
+    axios({
+      method: "post",
+      url: "/api/review",
+      data: formData,
+    })
+      .then((res) => {})
       .catch((error) => {
-        // Handle errors here
-        console.error("Error posting comment:", error);
+        console.error("Error while saving data:", error);
       });
   };
 
   return (
     <div>
-      <div class="border-bottom py-4">
-        <h5 class="font-size-21 font-weight-bold text-dark mb-8">
-          Showing verified guest comments
-        </h5>
-        {reviews.map((review) => (
-          <div class="media flex-column flex-md-row align-items-center align-items-md-start mb-4">
-            <div className="mr-md-5">
-              <img
-                src={review.image}
-                alt={`Image by ${review.username}`}
-                style={{ maxWidth: "100px", maxHeight: "100px" }} // Adjust the dimensions as needed
-              />
+      <div className="room-review">
+        <div className="room-title">
+          <h2>Room Reviews</h2>
+        </div>
+        {reviews.map((review, index) => (
+          <div className="review-item" key={index}>
+            <div className="review-img">
+              <img src={review.image} alt={`Image by ${review.username}`} />
             </div>
-
-            <div class="media-body text-center text-md-left">
-              <div>
-                <div class="mb-4">
-                  <h6 class="font-weight-bold text-gray-3">
-                    {review.username}
-                  </h6>
-
-                  <div class="d-flex align-items-center flex-column flex-md-row mb-2">
-                    <span class="font-weight-bold font-italic text-gray-3">
-                      {review.comment}
-                    </span>
-                  </div>
-                </div>
+            <div className="review-text">
+              <div className="r-title">
+                <h2>{review.username}</h2>
+                <ul>
+                  {[...Array(review.starRating).keys()].map((i) => (
+                    <li key={i}>
+                      <i className="fa fa-star" aria-hidden="true"></i>
+                    </li>
+                  ))}
+                </ul>
               </div>
+              <p>{review.comment}</p>
             </div>
-            <div class="media flex-column flex-md-row align-items-center align-items-md-start mb-0"></div>
           </div>
         ))}
       </div>
 
       <div
-        class="py-4"
+        className="py-4"
         style={{
-          display: localStorage.getItem("user") ? "block" : "none",
+          display: localStorage.getItem("user_id") ? "block" : "none",
         }}
       >
-        <h5 class="font-size-21 font-weight-bold text-dark mb-6">
+        <h5 className="font-size-21 font-weight-bold text-dark mb-6">
           Write a Review
         </h5>
-        <form class="js-validate" novalidate="novalidate">
-          <div class="row mb-5 mb-lg-0">
-            {/* <!-- Input --> */}
-            <div class="col-sm-12 mb-5">
-              <div class="js-form-message">
-                <div class="input-group">
+        <form className="js-validate">
+          <div className="row mb-5 mb-lg-0">
+            <div className="col-sm-12 mb-5">
+              <div className="js-form-message">
+                <div className="input-group">
                   <input
                     type="text"
-                    class="form-control"
-                    rows="6"
-                    cols="77"
+                    className="form-control"
                     name="text"
                     placeholder="Comment"
                     aria-label="Hi there, I would like to ..."
@@ -114,24 +102,22 @@ function Reviews() {
                     data-msg="Please enter a reason."
                     data-error-class="u-has-error"
                     data-success-class="u-has-success"
-                   // value={commentText}
-                    //onChange={(e) => setCommentText(e.target.value)}
+                    value={commentText}
+                    onChange={(param) => setCommentText(param.target.value)}
                   ></input>
                 </div>
               </div>
             </div>
-            {/* <!-- End Input --> */}
             <div className="col d-flex justify-content-center justify-content-lg-start">
               <button
-                onClick={(e) => comment(e)}
+                onClick={(param) => comment(param)}
                 style={{
-                  backgroundColor: "#297cbb", // Background color #297cbb;
-
-                  color: "white", // Text color
-                  padding: "10px 20px", // Padding
-                  border: "none", // Remove border
-                  borderRadius: "4px", // Rounded corners
-                  cursor: "pointer", // Add a pointer cursor on hover
+                  backgroundColor: "#297cbb",
+                  color: "white",
+                  padding: "10px 20px",
+                  border: "none",
+                  borderRadius: "4px",
+                  cursor: "pointer",
                 }}
               >
                 Submit Comment

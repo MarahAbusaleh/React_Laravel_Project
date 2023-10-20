@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use App\DataTables\ReviewDataTable;
 use App\Models\Item;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 
 class ReviewController extends Controller
 {
@@ -32,19 +33,24 @@ class ReviewController extends Controller
 
 
     // This function adds a new review that comes from a React page as a response to the API.
-    public function addNewReview(Request $request)
-    {
-        $data = $request->validate([
-            'user_id' => 'required|integer',
-            'item_id' => 'required|integer',
-            'comment' => 'required|string',
-            'date' => 'required|date',
-        ]);
 
-        $review = Review::create($data)->with('user')->get();
 
-        return response()->json($review, 201);
-    }
+public function addNewReview(Request $request)
+{
+    $formattedDate = Carbon::now()->format('Y-m-d');
+
+    $review = Review::create([
+        'comment' => $request->comment,
+        'user_id' => $request->user_id,
+        'item_id' => $request->item_id,
+        'date' => $formattedDate, // Use $formattedDate directly
+    ]);
+
+    return response()->json($review);
+}
+
+
+
 
     // This function returns a list of reviews.
     public function index()
