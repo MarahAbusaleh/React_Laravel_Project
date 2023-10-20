@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
 
-
 function Profile() {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('tab');
@@ -41,7 +40,7 @@ function Profile() {
     });
     const [userPass, setUserPass] = useState('');
 
-    let user_id = 1;
+    let user_id = localStorage.getItem('user_id');;
 
     /*------------------------------------------- getUserInfo API -------------------------------------------*/
     const getUserInfo = () => {
@@ -59,6 +58,7 @@ function Profile() {
     useEffect(() => {
         console.log('test');
         getUserInfo();
+        console.log('test1222');
     }, []);
 
     const handleSubmit = (e) => {
@@ -94,6 +94,7 @@ function Profile() {
     useEffect(() => {
         if (userPass !== '') {
             const updateUserPass = () => {
+
                 axios
                     .put(`http://127.0.0.1:8000/api/updateUserPass/${userData.id}`, {
                         password: userPass,
@@ -175,22 +176,22 @@ function Profile() {
 
     const getTheLastUserOrder = () => {
 
-        axios
-            .get(`http://127.0.0.1:8000/api/getTheLastUserOrder/${userData.id}`)
-            .then((response) => {
+        // axios
+        //     .get(`http://127.0.0.1:8000/api/getTheLastUserOrder/${userData.id}`)
+        //     .then((response) => {
 
-                console.log(response.data);
-                setUserOrder({
-                    item_id: response.data.item_id,
-                    date: response.data.date,
-                    time: response.data.time,
-                    location: response.data.location,
-                    notes: response.data.notes,
-                    editing: response.data.editing,
-                    totalPrice: response.data.totalPrice
-                });
-                console.log(userOrder);
-            })
+        //         console.log(response.data);
+        //         setUserOrder({
+        //             item_id: response.data.item_id,
+        //             date: response.data.date,
+        //             time: response.data.time,
+        //             location: response.data.location,
+        //             notes: response.data.notes,
+        //             editing: response.data.editing,
+        //             totalPrice: response.data.totalPrice
+        //         });
+        //         console.log(userOrder);
+        //     })
 
     }
 
@@ -241,9 +242,10 @@ function Profile() {
                                 <div className={`tab-pane ${activeTab === 'tab' ? 'active' : ''}`} id="tab">
                                     <div className="row">
                                         <div className="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                            <p>
+                                            <div>
                                                 <br />
                                                 <form onSubmit={handleEditInfo} method="PUT">
+
                                                     <div>
                                                         <h4 style={{ display: 'inline' }}>Name:</h4>
                                                         {editableField === 'name' ? (
@@ -341,7 +343,7 @@ function Profile() {
                                                     <br></br>
                                                     <button type='submit' className='theme-btn'>Save</button>
                                                 </form>
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
