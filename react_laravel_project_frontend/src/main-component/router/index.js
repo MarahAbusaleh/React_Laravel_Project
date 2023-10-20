@@ -35,18 +35,25 @@ const AllRoute = () => {
             <Route path="checkout" element={<CheckoutPage />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="order_received" element={<OrderRecived />} />
-            <Route path="destination" element={<DestinationPage />} />
+            {/* <Route path="destination" element={<DestinationPage />} /> */}
+            {/* <Route
+              path="destination-single/:id"
+              element={<DestinationSinglePage />}
+            /> */}
+            
+            <Route path="destination/:id" element={<DestinationPage />} />
             <Route
               path="destination-single/:id"
               element={<DestinationSinglePage />}
             />
+
             <Route path="pricing" element={<PricingPage />} />
             <Route path="404" element={<ErrorPage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<SignUpPage />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="/google" component={<Google/>} />
+            <Route path="/google" component={<Google />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

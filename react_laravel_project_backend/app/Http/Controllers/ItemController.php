@@ -11,12 +11,24 @@ use App\Models\Category;
 class ItemController extends Controller
 {
     // Return all items as a response to API
-    public function getAllItems($id)
+    public function getAllItems()
     {
         $items = Item::all();
-        $category = Category::where("category_id", $id)->first();
+        // $category = Category::where("category_id", $id)->first();
         return response()->json($items);
     }
+    
+    public function getSingleItem($id)
+    {
+        $item = Item::find($id);
+    
+        if (!$item) {
+            return response()->json(['error' => 'Item not found'], 404);
+        }
+    
+        return response()->json($item);
+    }
+    
 
     public function index(ItemDataTable $dataTables)
     {
@@ -36,7 +48,7 @@ class ItemController extends Controller
             'image' => 'required',
             'description' => 'required',
             'category_id' => 'required',
-            'price' => 'required|numeric', // Add validation for the 'price' field
+            'price' => 'required|numeric', 
         ]);
 
         Item::create($request->all());
@@ -63,7 +75,7 @@ class ItemController extends Controller
             'image' => 'required',
             'description' => 'required',
             'category_id' => 'required',
-            'price' => 'required|numeric', // Add validation for the 'price' field
+            'price' => 'required|numeric', 
         ]);
 
         $item->update($request->all());

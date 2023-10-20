@@ -16,8 +16,6 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
 
-        // You need to define your desired API response format here.
-        // For simplicity, we'll return the categories as JSON.
         return response()->json(['categories' => $categories]);
     }
 

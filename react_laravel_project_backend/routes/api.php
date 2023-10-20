@@ -61,6 +61,11 @@ Route::get('/items',[ ItemController :: class ,'getAllItems']);
 Route::get('/item/{id}',[ ItemController :: class ,'getSingleItem']);
 // Route::resource('reviews',[ ReviewController::class ,'getAllReviews']);
 // Route::resource('review/{id}',[ ReviewController::class ,'getSingleReview']);
-Route::resource('reviews', ReviewController::class);
+Route::get('/review/{id}',[ ReviewController::class ,'getSingleReview']);
+Route::post('/review/{id}',[ ReviewController::class ,'addNewReview']);
+
+
+
+
 Route::get('social/google', [LoginGoogle::class, 'redirect']);
 Route::get('social/google/callback', [LoginGoogle::class, 'googleCallback']);
