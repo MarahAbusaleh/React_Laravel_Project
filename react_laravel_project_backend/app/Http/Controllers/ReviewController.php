@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ReviewDataTable;
 use App\Models\Item;
 use App\Models\Review;
 use Illuminate\Http\Request;
@@ -51,6 +52,14 @@ class ReviewController extends Controller
         $reviews = Review::all();
         return response()->json($reviews, 200);
     }
+
+
+    public function indexDash(ReviewDataTable $dataTables)
+    {
+        return $dataTables->render('AdminDashboard.Pages.review.index');
+    }
+
+
 
     // This function deletes a specific review.
     public function destroy(Review $review)

@@ -18,7 +18,7 @@ class ReviewDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $deleteBtn = "<a href='" . route('reviews.destroy', $query->id) . "' class='btn btn-danger my-2 delete-item' style='padding: 5px; vertical-align: middle'><i class='fas fa-trash-alt'></i></a>";
+                $deleteBtn = "<a class='btn btn-danger my-2 delete-item' style='padding: 5px; vertical-align: middle'><i class='fas fa-trash-alt'></i></a>";
 
                 return $deleteBtn;
             })

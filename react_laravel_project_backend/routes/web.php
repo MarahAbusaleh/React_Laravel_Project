@@ -27,6 +27,9 @@ Route::resource('user', UserController::class);
 //     return view('AdminDashboard.Pages.login');
 // });
 
+
+Route::get('/', [AdminController::class, 'index']);
+
 Route::get('/login', [AdminController::class, 'index'])->name('login');
 
 Route::post('/AdminLogin', [AdminController::class, 'AdminLogin'])->name('AdminLogin');
@@ -50,8 +53,6 @@ Route::resource('items', ItemController::class);
 // Route::resource('review/{id}',[ ReviewController::class ,'getSingleReview']);
 //Route::resource('reviews', ReviewController::class);
 Route::get('reviews', [ReviewController::class, 'indexDash']);
-Route::get('/', function () {
-    return ['Laravel' => app()->version()];
-});
+
 
 require __DIR__ . '/auth.php';
