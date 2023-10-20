@@ -6,7 +6,14 @@
         <div class="content-wrapper">
             <div class="row">
                 <div class="col-md-12 ">
-                <a href="{{ route('categories.create') }}"><button>Add Category</button></a>
+                    <br>
+                    <center>
+                        <a href="{{ route('categories.create') }}">
+                            <button class="btn btn-primary mr-2">
+                                <i class='fas fa-plus'></i>Add Category
+                            </button>
+                        </a>
+                    </center>
                     {!! $dataTable->table() !!}
                 </div>
             </div>

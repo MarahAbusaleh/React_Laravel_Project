@@ -116,7 +116,7 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="pages/forms/basic_elements.html">
+                    <a class="nav-link" href="{{ url('user') }}">
                         <span class="menu-icon">
                             <i class="mdi mdi-account-multiple-outline"></i>
                         </span>
@@ -124,7 +124,7 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="pages/forms/basic_elements.html">
+                    <a class="nav-link" href="{{ url('categories') }}">
                         <span class="menu-icon">
                             <i class="mdi mdi-format-line-weight"></i>
                         </span>
@@ -132,7 +132,7 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="pages/forms/basic_elements.html">
+                    <a class="nav-link" href="{{ url('items') }}">
                         <span class="menu-icon">
                             <i class="mdi mdi-format-list-bulleted"></i>
                         </span>

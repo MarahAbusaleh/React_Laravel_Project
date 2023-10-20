@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('user', UserController::class);
-// Route::resource('category', CategoryController::class);
 
 /*---------------------------------------- Marah Routes ----------------------------------------*/
 

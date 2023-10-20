@@ -6,13 +6,16 @@ use Illuminate\Support\Facades\Validator;
 use App\DataTables\UserDataTable;
 use App\Models\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class UserController extends Controller
 {
     //This function to return user info as response to API
     public function getUserInfo($user_id)
     {
-        //
+        $userInfo = User::findOrFail($user_id);
+        return response()->json($userInfo);
     }
 
 
@@ -86,7 +89,6 @@ class UserController extends Controller
     }
 
 
-
     //This function to add update password info that come from react page as response to API 
     public function updateUserPass(Request $request, $id)
     {
@@ -118,11 +120,49 @@ class UserController extends Controller
         return $dataTables->render('AdminDashboard.Pages.user.index');
     }
 
-    public function edit()
+
+    public function create()
     {
+        return view('AdminDashboard.Pages.user.create');
     }
 
-    public function destroy()
+
+    public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'image' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'password' => 'required',
+        ]);
+
+        $relativeImagePath = null;
+        if ($request->hasFile('image')) {
+            $newImageName1 = uniqid() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
+            $relativeImagePath = 'assets/images/' . $newImageName1;
+            $request->file('image')->move(public_path('assets/images'), $newImageName1);
+        }
+
+        User::create([
+            'name' => $request->input('name'),
+            'image' => $relativeImagePath,
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'password' => $request->input('password'),
+        ]);
+
+        Alert::success('success', 'User Added Successfully');
+
+        return redirect()->route('user.index');
+    }
+
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 }

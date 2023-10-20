@@ -6,6 +6,15 @@
         <div class="content-wrapper">
             <div class="row">
                 <div class="col-md-12 ">
+                    @include('sweetalert::alert')
+                    <br>
+                    <center>
+                        <a href="{{ route('user.create') }}">
+                            <button class="btn btn-primary mr-2">
+                                <i class='fas fa-plus'></i>Add User
+                            </button>
+                        </a>
+                    </center>
                     {!! $dataTable->table() !!}
                 </div>
             </div>

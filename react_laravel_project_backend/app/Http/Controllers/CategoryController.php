@@ -9,15 +9,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
     public function getAllCategories()
     {
         $categories = Category::all();
-
-        // You need to define your desired API response format here.
-        // For simplicity, we'll return the categories as JSON.
         return response()->json(['categories' => $categories]);
     }
 
@@ -45,18 +43,23 @@ class CategoryController extends Controller
                 ->withInput();
         }
 
-        // Handle image upload and save to storage
-        $imagePath = $request->file('image')->store('category_images');
+        $relativeImagePath = null;
+        if ($request->hasFile('image')) {
+            $newImageName1 = uniqid() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
+            $relativeImagePath = 'assets/images/' . $newImageName1;
+            $request->file('image')->move(public_path('assets/images'), $newImageName1);
+        }
 
         // Create a new category
         Category::create([
             'name' => $request->input('name'),
-            'image' => $imagePath,
+            'image' => $relativeImagePath,
             'description' => $request->input('description'),
         ]);
 
-        return redirect()->route('categories.index')
-            ->with('success', 'Category created successfully');
+        Alert::success('success', 'Category Added Successfully');
+
+        return redirect()->route('categories.index');
     }
 
     public function show(Category $category)
@@ -70,6 +73,7 @@ class CategoryController extends Controller
     }
 
     public function update(Request $request, Category $category)
+
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -83,39 +87,44 @@ class CategoryController extends Controller
                 ->withInput();
         }
 
-        // Update category fields
-        $category->name = $request->input('name');
-        $category->description = $request->input('description');
+        $data = $request->except(['_token', '_method']);
 
-        // Handle image update if a new image is provided
+        $relativeImagePath = null;
         if ($request->hasFile('image')) {
-            // Delete old image if it exists
-            if (Storage::exists($category->image)) {
-                Storage::delete($category->image);
-            }
-
-            // Store the new image
-            $imagePath = $request->file('image')->store('category_images');
-            $category->image = $imagePath;
+            $newImageName = uniqid() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
+            $relativeImagePath = 'assets/images/' . $newImageName;
+            $request->file('image')->move(public_path('assets/images'), $newImageName);
+            $data['image'] = $relativeImagePath;
         }
 
-        $category->save();
+        Category::where('id', $category->id)->update($data);
 
-        return redirect()->route('categories.index')
-            ->with('success', 'Category updated successfully');
+        Alert::success('success', 'Category Updated Successfully');
+
+        return redirect()->route('categories.index');
     }
 
-    public function destroy(Category $category)
-    {
-        // Delete the category image
-        if (Storage::exists($category->image)) {
-            Storage::delete($category->image);
-        }
 
-        // Delete the category record from the database
+    public function destroy($id)
+    {
+        $category = Category::findOrFail($id);
         $category->delete();
 
-        return redirect()->route('categories.index')
-            ->with('success', 'Category deleted successfully');
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
+
+
+    // public function destroy(Category $category)
+    // {
+    //     // Delete the category image
+    //     if (Storage::exists($category->image)) {
+    //         Storage::delete($category->image);
+    //     }
+
+    //     // Delete the category record from the database
+    //     $category->delete();
+
+    //     return redirect()->route('categories.index')
+    //         ->with('success', 'Category deleted successfully');
+    // }
 }
