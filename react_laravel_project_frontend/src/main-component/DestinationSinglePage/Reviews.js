@@ -8,16 +8,21 @@ import { useNavigate } from "react-router-dom";
 function Reviews() {
   let { id } = useParams();
   const [reviews, setReviews] = useState([]);
-  const [commentText, setCommentText] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/api/reviews`)
+      .get(`http://127.0.0.1:8000/api/review/${id}`)
       .then((response) => {
         setReviews(response.data);
+        setLoading(false);
       })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
+      .catch((err) => {
+        setError(err);
+        setLoading(false);
       });
   }, [id]);
 
@@ -30,7 +35,7 @@ function Reviews() {
     const user = JSON.parse(userData);
     axios
       .post("https://651db05044e393af2d5a346e.mockapi.io/review", {
-        comment: commentText, // Send the comment text
+       // comment: commentText,  Send the comment text
         yacht_id: id,
         username: user.name,
         image: user.image,
@@ -38,7 +43,7 @@ function Reviews() {
       })
       .then((response) => {
         // Handle success, reset state variables here
-        setCommentText(""); // Clear the comment text after posting
+       // setCommentText("");  Clear the comment text after posting
       })
       .catch((error) => {
         // Handle errors here
@@ -109,8 +114,8 @@ function Reviews() {
                     data-msg="Please enter a reason."
                     data-error-class="u-has-error"
                     data-success-class="u-has-success"
-                    value={commentText}
-                    onChange={(e) => setCommentText(e.target.value)}
+                   // value={commentText}
+                    //onChange={(e) => setCommentText(e.target.value)}
                   ></input>
                 </div>
               </div>
