@@ -9,28 +9,24 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Http\Response;
 
 class LoginGoogle extends Controller
 {
-    public function redirect()
-    {
-        return Socialite::driver('google')->redirect();
-    }
 
-    public function googleCallback()
+
+    public function google(Request $request)
     {
         try {
-            $user = Socialite::driver('google')->user();
-            $current_user = User::where('google_id', $user->id)->first();
+            $current_user = User::where('google_id', $request->id)->first();
 
             if ($current_user) {
                 Auth::login($current_user);
                 return response()->json(['message' => 'User logged in successfully', 'user' => $current_user]);
             } else {
-                $newUser = User::updateOrCreate(['email' => $user->email], [
-                    'name' => $user->name,
-                    'google_id' => $user->id,
-                    'password' => Hash::make($user->password)
+                $newUser = User::updateOrCreate(['email' => $request->email], [
+                    'name' => $request->name,
+                    'google_id' => $request->id,
                 ]);
 
                 Auth::login($newUser);
@@ -40,4 +36,5 @@ class LoginGoogle extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
 }
