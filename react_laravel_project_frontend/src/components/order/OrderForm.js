@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addOrder } from "../../store/actions/order";
 import axios from "../../main-component/axios/axios";
@@ -11,8 +11,10 @@ import Navbar from '../../components/Navbar';
 import Logo from '../../images/logo2.png'
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const OrderForm = () => {
+const OrderForm = (props) => {
   const { itemId } = useParams();
+  const [item, setItem] = useState(null);
+
   //It allows you to access the URL parameters, specifically the itemId from the URL.
 
   const dispatch = useDispatch();
@@ -24,6 +26,7 @@ const OrderForm = () => {
     item_id: "",
     date: "",
     time: "",
+    phone: "",
     location: "",
     notes: "",
     totalPrice: "",
@@ -31,6 +34,7 @@ const OrderForm = () => {
   });
   const user_id = localStorage.getItem("user_id");
   formData.user_id = user_id;
+  formData.item_id = itemId;
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -40,7 +44,11 @@ const OrderForm = () => {
     const isChecked = event.target.checked;
     const editingValue = isChecked;
     const editingTotalPriceAdjustment = isChecked ? 20 : 0;
-    const newTotalPrice = parseFloat(formData.totalPrice) + editingTotalPriceAdjustment;
+    console.log(editingTotalPriceAdjustment);
+    const newTotalPrice = parseFloat(item.item.price) + editingTotalPriceAdjustment;
+    console.log(newTotalPrice);
+    item.item.price = newTotalPrice;
+    console.log(item.item.price)
     // Update the form data
     setFormData((prevData) => ({
       ...prevData,
@@ -49,6 +57,10 @@ const OrderForm = () => {
     }));
     // If the checkbox is unchecked, and the editingValue is false, revert to the previous total price
     if (!editingValue) {
+      item.item.price = newTotalPrice - 20;
+      console.log(item.item.price)
+
+
       setFormData((prevData) => ({
         ...prevData,
         totalPrice: parseFloat(prevData.totalPrice) - 20,
@@ -67,17 +79,41 @@ const OrderForm = () => {
       const csrfResponse = await axios.get("/get-csrf-token");
       const csrfToken = csrfResponse.data.csrf_token;
       axios.defaults.headers.common["XSRF-TOKEN"] = csrfToken;
-      const response = await axios.post("/api/order", formData);
+      const response = await axios.post("/api/order", {
+        user_id: formData.user_id,
+        phone: formData.phone,
+        item_id: formData.item_id,
+        date: formData.date,
+        location: formData.location,
+        time: formData.time,
+        notes: formData.notes,
+        editing: formData.editing,
+        totalPrice: formData.totalPrice
+      });
       /////////////////////////////
       dispatch(addOrder(response.data.order));
       console.log("Order created successfully:", response.data);
       // Redirect to the payment page after successful submission
-      navigate("/payment");
+      navigate(`/payment/${itemId}`);
     } catch (error) {
       console.error("Error creating order:", error);
     }
-    
+
   };
+
+  const getItem = async () => {
+    await axios.get(`http://127.0.0.1:8000/api/item/${itemId}`)
+      .then((response) => {
+        setItem(response.data);
+        console.log("testt")
+        console.log(item.item.price);
+      })
+      .catch((err) => {
+      });
+  }
+  useEffect(() => {
+    getItem();
+  }, [itemId]);
 
 
   //   Making an Order Creation Request:
@@ -119,12 +155,11 @@ const OrderForm = () => {
                         />
                       </div>
                       <div className="form-group">
-                        <label>Item ID:</label>
                         <input
                           className="form-control"
-                          type="text"
+                          type="hidden"
                           name="item_id"
-                         // value={item.id}
+                          value={itemId}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -160,6 +195,17 @@ const OrderForm = () => {
                         />
                       </div>
                       <div className="form-group">
+                        <label>Phone:</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
                         <label>Notes:</label>
                         <textarea
                           className="form-control"
@@ -172,11 +218,11 @@ const OrderForm = () => {
                         <label>Total Price:</label>
                         <input
                           className="form-control"
-                          // type="text"
+                          type="text"
                           name="totalPrice"
-                          value={formData.totalPrice}
+                          value={item ? item.item.price : ""}
                           onChange={handleInputChange}
-                          readOnly
+                        // readOnly
                         />
                       </div>
 
@@ -190,6 +236,11 @@ const OrderForm = () => {
                         />
                       </div>
                       <div className="form-btn">
+                        {/* <Link to={`/order/${itemId}`}>
+                          <button type="submit" className="theme-btn col-12">
+                            Proceed to checkout
+                          </button>
+                        </Link> */}
                         <button className="submit-btn" type="submit">
                           Proceed to checkout
                         </button>

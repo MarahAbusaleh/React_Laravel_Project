@@ -8,7 +8,7 @@ import ins4 from '../../images/instragram/4.jpg'
 import ins5 from '../../images/instragram/5.jpg'
 import ins6 from '../../images/instragram/6.jpg'
 
-const DestinationSidebar = (props) => {
+const DestinationSidebar = ({ itemId }) => {
 
     const SubmitHandler = (e) => {
         e.preventDefault()
@@ -25,13 +25,17 @@ const DestinationSidebar = (props) => {
                     <h2>Benefits of Drones</h2>
                     <ul>
                         <li>Aerial Surveillance</li>
-                    
+
                     </ul>
                 </div>
                 <div className="wpo-newsletter-widget widget row">
-                    <button type="submit" className="theme-btn col-12">Book Now</button>
+                    <Link to={`/order/${itemId}`}>
+                        <button type="submit" className="theme-btn col-12">
+                            Book Now
+                        </button>
+                    </Link>
                 </div>
-                
+
 
                 <div className="wpo-contact-widget widget row">
                     <h2>How We Can <br /> Help You!</h2>

@@ -23,13 +23,16 @@ class OrderDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('orders.edit', $query->id) . "' class='btn btn-success' style='padding: 5px; vertical-align: middle; margin-right: 10px'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('orders.destroy', $query->id) . "' class='btn btn-danger my-2 delete-item' style='padding: 5px; vertical-align: middle;'><i class='fas fa-trash-alt'></i></a>";
-
-                return $editBtn . $deleteBtn;
+            ->addColumn('user', function ($query) {
+                if ($query->user) {
+                    return $query->user->name;
+                }
             })
-            ->rawColumns(['action'])
+            ->addColumn('item', function ($query) {
+                if ($query->item) {
+                    return $query->item->name;
+                }
+            })
             ->setRowId('id');
     }
 
@@ -71,15 +74,13 @@ class OrderDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('user'),
+            Column::make('item'),
             Column::make('date'),
             Column::make('time'),
             Column::make('location'),
             Column::make('totalPrice'),
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center'),
+
         ];
     }
 

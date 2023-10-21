@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\DataTables\ItemDataTable;
 use App\Models\Category;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Http\JsonResponse;
+
 
 
 class ItemController extends Controller
@@ -16,11 +18,11 @@ class ItemController extends Controller
     {
         // $items = Item::all();
         // $category = Category::where("category_id", $id)->first();
-        $items = Item::where('category_id',$id)->get();
+        $items = Item::where('category_id', $id)->get();
         return response()->json($items);
     }
 
-    public function getSingleItem($id)
+    public function getSingleItem($id): JsonResponse
     {
         $item = Item::find($id);
 
@@ -28,7 +30,13 @@ class ItemController extends Controller
             return response()->json(['error' => 'Item not found'], 404);
         }
 
-        return response()->json($item);
+        $response = [
+            'item' => $item,
+            'category' => $item->category,
+            'order' => $item->order,
+        ];
+
+        return response()->json($response);
     }
 
 

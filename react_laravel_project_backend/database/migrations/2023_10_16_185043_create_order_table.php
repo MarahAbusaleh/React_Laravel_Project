@@ -19,6 +19,7 @@ return new class extends Migration
             $table->time('time');
             $table->string('location');
             $table->text('notes');
+            $table->text('phone');
             $table->float('totalPrice');
             $table->boolean('editing');
 

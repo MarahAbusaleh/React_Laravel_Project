@@ -27,6 +27,7 @@ class OrderController extends Controller
             'time' => 'required',
             'location' => 'required|string',
             'notes' => 'nullable|string',
+            'phone' => 'nullable|number',
             'totalPrice' => 'required|numeric',
             'editing' => 'required|boolean',
         ]);
@@ -60,6 +61,7 @@ class OrderController extends Controller
             'date' => 'required|date',
             'time' => 'required|date_format:H:i',
             'location' => 'required|string|max:255',
+            'phone' => 'nullable',
             'notes' => 'nullable|string',
             'totalPrice' => 'required|numeric|min:0',
             'editing' => 'required|boolean',
