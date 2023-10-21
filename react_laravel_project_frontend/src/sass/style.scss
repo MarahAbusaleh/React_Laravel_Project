@@ -4,7 +4,6 @@ Theme Name:     Parador – Hotel Booking HTML5 Template
 Version:        1.0.0
 -------------------------------------------------------------------*/
 
-
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
@@ -72,7 +71,6 @@ Version:        1.0.0
 
 ----------------------------------------------------------------*/
 
-
 /*------------------------------------------------------------------
 1. General
 ----------------------------------------------------------------*/
@@ -84,7 +82,6 @@ Version:        1.0.0
 
 // base
 @import "base/base";
-
 
 // components
 @import "components/section-title";
@@ -104,14 +101,12 @@ Version:        1.0.0
 // components
 @import "components/sticky-header";
 
-
 // page
 @import "page/home-default";
 
 @import "page/_home-style2";
 
 @import "page/_home-style3";
-
 
 @import "page/_room-single";
 
@@ -139,5 +134,36 @@ Version:        1.0.0
 
 @import "page/_error-404";
 
+// .form-field2 {
+//   background: transparent;
+//   width: 100%;
+//   height: 50px;
+//   border: 1px solid transparent;
+//   border-radius: 0px;
+//   box-shadow: none !important;
+//   padding-left: 25px;
+//   border: 1px solid #ebebeb;
+// }
+form input {
+  background: white;
+  width: 50%;
+  height: 50px;
+  border: 1px solid transparent;
+  border-radius: 0px;
+  box-shadow: none !important;
+  padding-left: 25px;
+  border: 1px solid #ebebeb;
 
+  @include media-query(991px) {
+    height: 45px;
+  }
 
+  &:focus {
+    border-color: $theme-primary-color;
+    background: transparent;
+  }
+}
+
+form label {
+  color: black;
+}

@@ -199,8 +199,9 @@ function Profile() {
         await axios
             .get(`/api/getTheLastUserOrder/${user_id}`)
             .then((response) => {
-                console.log(response.data.item);
-                itemId = response.data.item_id;
+                console.log(response.data.item.category.name);
+                itemData.item_name = response.data.item.name;
+                itemData.cat_name = response.data.item.category.name;
 
                 setUserOrder({
                     item_id: response.data.item_id,
@@ -211,21 +212,6 @@ function Profile() {
                     editing: response.data.editing,
                     totalPrice: response.data.totalPrice
                 });
-            })
-
-        await axios
-            .get(`/api/item/${itemId}`)
-            .then((response) => {
-
-                itemData.item_name = response.data.name;
-                catId = response.data.category_id;
-            })
-
-        await axios
-            .get(`/api/category/${catId}`)
-            .then((response) => {
-
-                itemData.cat_name = response.data.name;
             })
 
     }
@@ -249,9 +235,11 @@ function Profile() {
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div className="well profile">
                             <img
-                                className="user img-circle pull-left clearfix"
-                                height="54"
-                                src={userData.image}
+                                className="user img-circle pull-left clearfix col-lg-1"
+                                height="65"
+                                style={{ marginBottom: '10px' }}
+                                // width="54"
+                                src={`${process.env.PUBLIC_URL}/${userData.image}`}
                                 alt={userData.name}
                             />
                             <h3 className="name pull-left clearfix" style={{ marginLeft: '10px' }}>{userData.name}</h3>
@@ -281,7 +269,7 @@ function Profile() {
                                                 <br />
                                                 <form onSubmit={handleEditInfo} method="PUT">
 
-                                                    <div>
+                                                    <div style={{ marginLeft: '20px', width: '50%' }}>
                                                         <h4 style={{ display: 'inline' }}>Name:</h4>
                                                         {editableField === 'name' ? (
                                                             <input
@@ -296,9 +284,10 @@ function Profile() {
                                                         )}
                                                         {editableField !== 'name' && (
                                                             <FontAwesomeIcon
+                                                                color='black'
                                                                 icon={faEdit}
                                                                 onClick={() => handleEditClick('name')}
-                                                                style={{ cursor: 'pointer', marginLeft: '5px' }}
+                                                                style={{ cursor: 'pointer', marginLeft: '5px', float: 'right' }}
                                                             />
                                                         )}
                                                         <br /><br />
@@ -317,9 +306,10 @@ function Profile() {
                                                         )}
                                                         {editableField !== 'email' && (
                                                             <FontAwesomeIcon
+                                                                color='black'
                                                                 icon={faEdit}
                                                                 onClick={() => handleEditClick('email')}
-                                                                style={{ cursor: 'pointer', marginLeft: '5px' }}
+                                                                style={{ cursor: 'pointer', marginLeft: '5px', float: 'right' }}
                                                             />
                                                         )}
                                                         <br /><br />
@@ -339,8 +329,9 @@ function Profile() {
                                                         {editableField !== 'phone' && (
                                                             <FontAwesomeIcon
                                                                 icon={faEdit}
+                                                                color='black'
                                                                 onClick={() => handleEditClick('phone')}
-                                                                style={{ cursor: 'pointer', marginLeft: '5px' }}
+                                                                style={{ cursor: 'pointer', marginLeft: '5px', float: 'right' }}
                                                             />
                                                         )}
                                                         <br /><br />
@@ -355,8 +346,10 @@ function Profile() {
                                                             />
                                                         ) : (
                                                             <img
-                                                                className=" i pull-left clearfix"
-                                                                height="200"
+                                                                className="i user pull-left clearfix col-lg-8"
+                                                                style={{ borderRadius: '20%' }}
+                                                                height="240"
+                                                                width='240'
                                                                 src={userData.image}
                                                                 alt={userData.name}
                                                             />
@@ -364,8 +357,9 @@ function Profile() {
                                                         {editableField !== 'image' && (
                                                             <FontAwesomeIcon
                                                                 icon={faEdit}
+                                                                color='black'
                                                                 onClick={() => handleEditClick('image')}
-                                                                style={{ cursor: 'pointer', marginLeft: '5px' }}
+                                                                style={{ cursor: 'pointer', marginLeft: '5px', float: 'right' }}
                                                             />
                                                         )}
                                                     </div>
@@ -376,7 +370,13 @@ function Profile() {
                                                     <br></br>
                                                     <br></br>
                                                     <br></br>
-                                                    <button type='submit' className='theme-btn'>Save</button>
+                                                    <br></br>
+                                                    <br></br>
+                                                    <br></br>
+                                                    <br></br>
+                                                    <br></br>
+                                                    <br></br>
+                                                    <button type='submit' className='theme-btn' style={{ display: 'block' }}>Save</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -386,25 +386,25 @@ function Profile() {
                                     <div className="row">
                                         <div className="col-xs-12 col-sm-10 col-md-10 col-lg-10">
                                             <div className="tab-content">
-                                                <div className="tab-pane active" id="basic">
-                                                    <form className="form-horizontal" onSubmit={handleSubmit} method="PUT">
-                                                        <h4>Change Your Password</h4>
-
-                                                        <div className="form-group">
-                                                            <label htmlFor="oldPass">Current Password:</label>
-                                                            <input name="oldPass" type="password" className="form-control" id="oldPass" required />
+                                                <div className="tab-pane active" id="basic" style={{ marginLeft: '10px' }}>
+                                                    <h4>Change Your Password</h4><br></br>
+                                                    <form className="form-horizontal" onSubmit={handleSubmit} method="PUT" style={{ marginLeft: '10px' }}>
+                                                        <label htmlFor="oldPass">Current Password:</label>
+                                                        <div className="form-field2">
+                                                            <input name="oldPass" type="password" id="oldPass" required />
                                                         </div>
 
-                                                        <div className="form-group">
-                                                            <label htmlFor="password">New Password:</label>
-                                                            <input name="password" type="password" className="form-control" id="password" required />
+                                                        <label htmlFor="password">New Password:</label>
+                                                        <div className="form-field2">
+                                                            <input name="password" type="password" id="password" required />
                                                         </div>
 
-                                                        <div className="form-group">
-                                                            <label htmlFor="confPass">Confirm New Password:</label>
-                                                            <input name="confPass" type="password" className="form-control" id="confPass" required />
+                                                        <label htmlFor="confPass">Confirm New Password:</label>
+                                                        <div className="form-field2">
+                                                            <input name="confPass" type="password" id="confPass" required />
                                                         </div>
-
+                                                        <br></br>
+                                                        <br></br>
                                                         <button type="submit" className="theme-btn">Change</button>
                                                     </form>
                                                 </div>

@@ -6,11 +6,8 @@ import PageTitle from "../../components/pagetitle/PageTitle";
 import DestinationSidebar from "./sidebar";
 import Benefits from "./benefits";
 import Footer from "../../components/footer";
-//import Newslatter from "../../components/Newslatter/Newslatter";
 import Scrollbar from "../../components/scrollbar";
 import Logo from "../../images/logo2.png";
-import rv1 from "../../images/room/r1.jpg";
-import rv2 from "../../images/room/r2.jpg";
 import Reviews from "./Reviews";
 
 const DestinationSinglePage = (props) => {

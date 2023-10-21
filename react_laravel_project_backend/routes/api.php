@@ -80,6 +80,8 @@ Route::get('/item/{id}', [ItemController::class, 'getSingleItem']);
 Route::get('/review/{id}', [ReviewController::class, 'getSingleReview']);
 Route::post('/review/{id}', [ReviewController::class, 'addNewReview']);
 Route::post('/review', [ReviewController::class, 'addNewReview']);
+Route::put('/editReview/{id}/{user_id}', [ReviewController::class, 'editReview']);
+Route::delete('/deleteReview/{id}/{user_id}', [ReviewController::class, 'deleteReview']);
 
 
 
