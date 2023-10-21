@@ -72,7 +72,7 @@ Route::post('/order', [OrderController::class, 'storee']);
 // Additional route for getting all categories in API format
 Route::get('/categories', [CategoryController::class, 'getAllCategories']);
 Route::get('/category/{id}', [CategoryController::class, 'getCategory']);
-Route::get('/items', [ItemController::class, 'getAllItems']);
+Route::get('/items/{id}', [ItemController::class, 'getAllItems']);
 Route::get('/item/{id}', [ItemController::class, 'getSingleItem']);
 // Route::resource('reviews',[ ReviewController::class ,'getAllReviews']);
 // Route::resource('review/{id}',[ ReviewController::class ,'getSingleReview']);
