@@ -68,8 +68,7 @@ Route::get('getTheLastUserOrder/{id}', [OrderController::class, 'getTheLastUserO
 /*-------------------------------------- Marah Routes End --------------------------------------*/
 
 
-Route::post('/order', [OrderController::class, 'store']);
-Route::get('/order', [OrderController::class, 'store']);
+Route::post('/order', [OrderController::class, 'storee']);
 // Additional route for getting all categories in API format
 Route::get('/categories', [CategoryController::class, 'getAllCategories']);
 Route::get('/category/{id}', [CategoryController::class, 'getCategory']);

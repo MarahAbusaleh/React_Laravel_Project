@@ -5,20 +5,36 @@ import { CLIENT_ID } from "../../Config/config";
 import { Link } from "react-router-dom";
 import Header from "../header/index";
 import Footer from "../../components/footer/index";
-import abimg from '../../images/03OK8RtV8MnXM5XSsZmBUvl-12..v1668779182.jpg'
+import { useParams } from "react-router-dom";
+import Axios from "axios";
+import PageTitle from "../../components/pagetitle/PageTitle";
+import Navbar from '../../components/Navbar';
+import Logo from '../../images/logo2.png'
 
 const Checkout = () => {
+    const [item, setItem] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const user_id = localStorage.getItem("user_id");
+    // formData.user_id = user_id;
+
+    const { id } = useParams();
     const [success, setSuccess] = useState(false);
     const [ErrorMessage, setErrorMessage] = useState("");
-    const [orderID, setOrderID] = useState(false);
-    const [selectedPaymentMethod, setSelectedPaymentMethod] =
-        useState("creditCard");
-    const [show, setShow] = useState(false);
+    const [orderID, setOrderID] = useState(null);
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("creditCard");
 
-    // Function to handle payment method selection
-    const handlePaymentMethodChange = (method) => {
-        setSelectedPaymentMethod(method);
-    };
+    useEffect(() => {
+        Axios.get(`http://127.0.0.1:8000/api/item/${id}`)
+            .then((response) => {
+                setItem(response.data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                setError(err);
+                setLoading(false);
+            });
+    }, [id]);
 
     // creates a PayPal order
     const createOrder = (data, actions) => {
@@ -60,13 +76,16 @@ const Checkout = () => {
         }
     }, [success, orderID]);
 
+    const showPayPalButtons = selectedPaymentMethod === "paypal";
+
     return (
         <div>
             <Header />
-            <div className="payment_image">
-                <img src={abimg} alt="" />
-            </div>
-        
+            <Navbar hclass={'wpo-header-style-3'} Logo={Logo} />
+            <PageTitle pageTitle="Checkout" pagesub={"payment"} />
+
+
+
             <section className="content header">
                 <div className="container">
                     <div className="details shadow">
@@ -79,8 +98,8 @@ const Checkout = () => {
                                 />
                             </div>
                             <div className="item__details">
-                                <div className="item__title">Iphone X</div>
-                                <div className="item__price">649.99 Â£</div>
+                                <div className="item__title"></div>
+                                <div className="item__price"></div>
 
                                 <div className="item__description">
                                     <ul>
@@ -105,33 +124,27 @@ const Checkout = () => {
                             <div className="payment__types">
                                 <div className="payment__type payment__type--paypal">
                                     <Link to="/order_received">
-                                        {" "}
-                                        {/* Specify the URL where you want to navigate */}
                                         <i className="icon icon-paypal">Cash</i>
                                     </Link>
                                 </div>
 
                                 <div
-                                    className={`payment__type payment__type--paypal ${selectedPaymentMethod === "paypal" ? "active" : ""
+                                    className={`payment__type payment__type--paypal ${showPayPalButtons ? "active" : ""
                                         }`}
-                                    onClick={() => {
-                                        setShow(true);
-                                        handlePaymentMethodChange("paypal");
-                                    }}
+                                    onClick={() => setSelectedPaymentMethod("paypal")}
                                 >
                                     <Link>
                                         <i className="icon icon-paypal">Paypal</i>
-                                        {show ? (
-                                            <PayPalScriptProvider
-                                                options={{ "client-id": CLIENT_ID }}
-                                            >
+                                        {showPayPalButtons && (
+                                            <PayPalScriptProvider options={{ "client-id": CLIENT_ID }}>
                                                 <PayPalButtons
                                                     style={{ layout: "vertical" }}
                                                     createOrder={createOrder}
                                                     onApprove={onApprove}
+                                                    onError={onError}
                                                 />
                                             </PayPalScriptProvider>
-                                        ) : null}
+                                        )}
                                     </Link>
                                 </div>
                             </div>
