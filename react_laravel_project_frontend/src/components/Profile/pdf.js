@@ -83,6 +83,8 @@ function PDF() {
             .get(`/api/getTheLastUserOrder/${user_id}`)
             .then((response) => {
                 itemId = response.data.item_id;
+                itemData.item_name = response.data.item.name;
+                itemData.cat_name = response.data.item.category.name;
 
                 setUserOrder({
                     item_id: response.data.item_id,
@@ -94,23 +96,6 @@ function PDF() {
                     totalPrice: response.data.totalPrice
                 });
             })
-
-        await axios
-            .get(`/api/item/${itemId}`)
-            .then((response) => {
-
-                itemData.item_name = response.data.name;
-                catId = response.data.category_id;
-            })
-        console.log(itemData.item_name);
-        await axios
-            .get(`/api/category/${catId}`)
-            .then((response) => {
-
-                itemData.cat_name = response.data.name;
-            })
-        console.log(itemData.cat_name);
-        console.log(itemData.cat_name);
 
     }
     const ThrottledGetTheLastUserOrder = throttle(getTheLastUserOrder, 1000);

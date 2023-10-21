@@ -6,7 +6,6 @@ import PageTitle from "../../components/pagetitle/PageTitle";
 import DestinationSidebar from "./sidebar";
 import Benefits from "./benefits";
 import Footer from "../../components/footer";
-//import Newslatter from "../../components/Newslatter/Newslatter";
 import Scrollbar from "../../components/scrollbar";
 import Logo from "../../images/DroneDash__3_-removebg-preview.png";
 import rv1 from "../../images/room/r1.jpg";
@@ -21,9 +20,12 @@ const DestinationSinglePage = (props) => {
 
   const navigate = useNavigate();
   useEffect(() => {
+    console.log("tttt")
     Axios.get(`http://127.0.0.1:8000/api/item/${id}`)
       .then((response) => {
+        // console.log(response.data)
         setItem(response.data);
+        console.log(item)
         setLoading(false);
       })
       .catch((err) => {
@@ -48,35 +50,27 @@ const DestinationSinglePage = (props) => {
   return (
     <Fragment>
       <Navbar hclass={"wpo-header-style-3"} Logo={Logo} />
-      <PageTitle pageTitle={item.name} pagesub={"Single Drone"} />
+      <PageTitle pageTitle={item.item.name} pagesub={"destination"} />
       <section className="wpo-destination-single-section section-padding">
         <div className="container">
           <div className="row">
             <div className="col-lg-8 col-md-12">
               <div className="wpo-destination-single-wrap">
                 <div className="wpo-destination-single-content">
-                  <img src={item.image} alt="" />
+                  <img src={item.item.image} alt="" />
                   <div className="wpo-destination-single-content-des">
-                    <h2>{item.name}</h2>
-                    <h4>{item.price} JOD</h4>
-                    <p>{item.description}</p>
+                    <h2>{item.item.name}</h2>
+                    <p>{item.item.description}</p>
                   </div>
                 </div>
-                {/* Include Reviews component here */}
                 <Reviews />
-
-
-                
                 {/* <Benefits /> */}
               </div>
             </div>
-            {/* Include DestinationSidebar component here */}
-            <DestinationSidebar />
+            <DestinationSidebar itemId={item.item.id} />
           </div>
         </div>
       </section>
-      {/* Include Newslatter component here */}
-      {/* <Newslatter nClass={"section-bg"} /> */}
       <Footer />
       <Scrollbar />
     </Fragment>

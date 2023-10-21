@@ -52,9 +52,10 @@ class CategoryController extends Controller
         $relativeImagePath = null;
         if ($request->hasFile('image')) {
             $newImageName1 = uniqid() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
-            $relativeImagePath = 'assets/images/' . $newImageName1;
-            $request->file('image')->move(public_path('assets/images'), $newImageName1);
+            $relativeImagePath = $newImageName1; // Image saved directly to the root of the "public" folder
+            $request->file('image')->move(public_path(), $newImageName1); // Save to the root of the "public" folder
         }
+
 
         // Create a new category
         Category::create([
@@ -97,9 +98,9 @@ class CategoryController extends Controller
 
         $relativeImagePath = null;
         if ($request->hasFile('image')) {
-            $newImageName = uniqid() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
-            $relativeImagePath = 'assets/images/' . $newImageName;
-            $request->file('image')->move(public_path('assets/images'), $newImageName);
+            $newImageName1 = uniqid() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
+            $relativeImagePath = $newImageName1; // Image saved directly to the root of the "public" folder
+            $request->file('image')->move(public_path(), $newImageName1); // Save to the root of the "public" folder
             $data['image'] = $relativeImagePath;
         }
 

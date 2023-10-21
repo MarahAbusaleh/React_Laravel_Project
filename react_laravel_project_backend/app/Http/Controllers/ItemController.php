@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\DataTables\ItemDataTable;
 use App\Models\Category;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Http\JsonResponse;
+
 
 
 class ItemController extends Controller
@@ -16,21 +18,27 @@ class ItemController extends Controller
     {
         // $items = Item::all();
         // $category = Category::where("category_id", $id)->first();
-        $items = Item::where('category_id',$id)->get();
+        $items = Item::where('category_id', $id)->get();
         return response()->json($items);
     }
-    
-    public function getSingleItem($id)
+
+    public function getSingleItem($id): JsonResponse
     {
         $item = Item::find($id);
-    
+
         if (!$item) {
             return response()->json(['error' => 'Item not found'], 404);
         }
-    
-        return response()->json($item);
+
+        $response = [
+            'item' => $item,
+            'category' => $item->category,
+            'order' => $item->order,
+        ];
+
+        return response()->json($response);
     }
-    
+
 
     public function index(ItemDataTable $dataTables)
     {
@@ -50,14 +58,14 @@ class ItemController extends Controller
             'image' => 'required',
             'description' => 'required',
             'category_id' => 'required',
-            'price' => 'required|numeric', 
+            'price' => 'required|numeric',
         ]);
 
         $relativeImagePath = null;
         if ($request->hasFile('image')) {
             $newImageName1 = uniqid() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
-            $relativeImagePath = 'assets/images/' . $newImageName1;
-            $request->file('image')->move(public_path('assets/images'), $newImageName1);
+            $relativeImagePath = $newImageName1; // Image saved directly to the root of the "public" folder
+            $request->file('image')->move(public_path(), $newImageName1); // Save to the root of the "public" folder
         }
 
         Item::create([
@@ -91,16 +99,16 @@ class ItemController extends Controller
             'image' => 'required',
             'description' => 'required',
             'category_id' => 'required',
-            'price' => 'required|numeric', 
+            'price' => 'required|numeric',
         ]);
 
         $data = $request->except(['_token', '_method']);
 
         $relativeImagePath = null;
         if ($request->hasFile('image')) {
-            $newImageName = uniqid() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
-            $relativeImagePath = 'assets/images/' . $newImageName;
-            $request->file('image')->move(public_path('assets/images'), $newImageName);
+            $newImageName1 = uniqid() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
+            $relativeImagePath = $newImageName1; // Image saved directly to the root of the "public" folder
+            $request->file('image')->move(public_path(), $newImageName1); // Save to the root of the "public" folder
             $data['image'] = $relativeImagePath;
         }
 

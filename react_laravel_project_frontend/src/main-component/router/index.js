@@ -58,8 +58,8 @@ const AllRoute = () => {
             <Route path="register" element={<SignUpPage />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="/google" component={<Google />} />
-            <Route path="order" element={<OrderForm />} />
-            <Route path="payment" element={<Checkout />} />
+            <Route path="order/:itemId" element={<OrderForm />} />
+            <Route path="payment/:itemId" element={<Checkout />} />
 
           </Routes>
         </AuthProvider>

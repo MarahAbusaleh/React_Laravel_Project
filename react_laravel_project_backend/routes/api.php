@@ -68,8 +68,7 @@ Route::get('getTheLastUserOrder/{id}', [OrderController::class, 'getTheLastUserO
 /*-------------------------------------- Marah Routes End --------------------------------------*/
 
 
-Route::post('/order', [OrderController::class, 'store']);
-Route::get('/order', [OrderController::class, 'store']);
+Route::post('/order', [OrderController::class, 'storee']);
 // Additional route for getting all categories in API format
 Route::get('/categories', [CategoryController::class, 'getAllCategories']);
 Route::get('/category/{id}', [CategoryController::class, 'getCategory']);
@@ -88,5 +87,4 @@ Route::delete('/deleteReview/{id}/{user_id}', [ReviewController::class, 'deleteR
 
 
 
-Route::get('social/google', [LoginGoogle::class, 'redirect']);
-Route::get('social/google/callback', [LoginGoogle::class, 'googleCallback']);
+Route::post('google', [LoginGoogle::class, 'google'])->name('google');

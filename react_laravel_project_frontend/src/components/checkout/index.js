@@ -2,23 +2,60 @@ import React, { useState, useEffect } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import "../checkout/checkout.css";
 import { CLIENT_ID } from "../../Config/config";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../header/index";
 import Footer from "../../components/footer/index";
-import abimg from '../../images/03OK8RtV8MnXM5XSsZmBUvl-12..v1668779182.jpg'
+import { useParams } from "react-router-dom";
+import Axios from "axios";
+import PageTitle from "../../components/pagetitle/PageTitle";
+import Navbar from '../../components/Navbar';
+import Logo from '../../images/logo2.png';
+import throttle from "lodash/throttle";
+import Swal from "sweetalert2";
+
 
 const Checkout = () => {
+    const navigate = useNavigate();
+    const [item, setItem] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [tPrice, setPrice] = useState(0);
+    const user_id = localStorage.getItem("user_id");
+    // formData.user_id = user_id;
+
+    const { itemId } = useParams();
     const [success, setSuccess] = useState(false);
     const [ErrorMessage, setErrorMessage] = useState("");
-    const [orderID, setOrderID] = useState(false);
-    const [selectedPaymentMethod, setSelectedPaymentMethod] =
-        useState("creditCard");
-    const [show, setShow] = useState(false);
+    const [orderID, setOrderID] = useState(null);
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("creditCard");
 
-    // Function to handle payment method selection
-    const handlePaymentMethodChange = (method) => {
-        setSelectedPaymentMethod(method);
-    };
+    const getItem = async (itemId) => {
+        // console.log(itemId);
+        // console.log(itemId);
+        await Axios.get(`http://127.0.0.1:8000/api/item/${itemId}`)
+            .then((response) => {
+                setItem(response.data);
+                item.order.forEach((order) => {
+                    if (order.item_id == itemId && order.user_id == user_id) {
+                        setPrice(order.totalPrice);
+                        console.log(order.totalPrice);
+                        console.log(order.totalPrice);
+                    }
+                });
+
+                setLoading(false);
+            })
+            .catch((err) => {
+                setError(err);
+                setLoading(false);
+            });
+    }
+
+    const throttledGetItem = throttle(getItem, 1000);
+
+    useEffect(() => {
+        throttledGetItem(itemId);
+    }, [itemId]);
 
     // creates a PayPal order
     const createOrder = (data, actions) => {
@@ -29,7 +66,7 @@ const Checkout = () => {
                         description: "Sunflower",
                         amount: {
                             currency_code: "USD",
-                            value: "20.00",
+                            value: "20",
                         },
                     },
                 ],
@@ -55,83 +92,91 @@ const Checkout = () => {
 
     useEffect(() => {
         if (success) {
-            alert("Payment successful!!");
+            // alert("Payment successful!!");
+            BtnClick();
             console.log("Order successful. Your order ID is:", orderID);
         }
     }, [success, orderID]);
 
+    const showPayPalButtons = selectedPaymentMethod === "paypal";
+    const BtnClick = () => {
+        Swal.fire({
+            icon: "success",
+            title: "Your Book Submitted Successfully!",
+        }).then((result) => {
+            navigate('/');
+        });
+    }
+
     return (
         <div>
             <Header />
-            <div className="payment_image">
-                <img src={abimg} alt="" />
-            </div>
-        
+            <Navbar hclass={'wpo-header-style-3'} Logo={Logo} />
+            <PageTitle pageTitle="Checkout" pagesub={"payment"} />
+
+
+
             <section className="content header">
                 <div className="container">
-                    <div className="details shadow">
-                        <div className="details__item">
-                            <div className="item__image">
-                                <img
-                                    className="iphone"
-                                    src="https://www.apple.com/v/iphone/compare/k/images/overview/compare_iphoneXSmax_silver_large.jpg"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="item__details">
-                                <div className="item__title">Iphone X</div>
-                                <div className="item__price">649.99 Â£</div>
-
-                                <div className="item__description">
-                                    <ul>
-                                        <li>Super fast and power efficient</li>
-                                        <li>A lot of fast memory</li>
-                                        <li>High resolution camera</li>
-                                        <li>Smart tools for health and traveling and more</li>
-                                        <li>
-                                            Share your games and achievements with your friends via
-                                            Group Play
-                                        </li>
-                                    </ul>
+                    {item ? ( // Conditionally render when item is available
+                        <div className="details shadow">
+                            <div className="details__item">
+                                <div className="item__image">
+                                    <img
+                                        height='400'
+                                        width='600'
+                                        className="iphone"
+                                        src={item.category.image}
+                                        alt=""
+                                    />
+                                </div>
+                                <div className="item__details">
+                                    <h2>{item.category.name}</h2>
+                                    <h4>{item.item.name}</h4>
+                                    <div className="item__title"></div>
+                                    <div className="item__price"></div>
+                                    <div className="item__description">
+                                        {item.item.description}
+                                    </div>
+                                    <h3>{tPrice && tPrice}</h3>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    ) : (
+                        // Render a loading message or handle the loading state as you prefer
+                        loading ? <p>Loading...</p> : (
+                            error ? <p>Error: {error.message}</p> : null
+                        )
+                    )}
 
                     <div className="discount"></div>
                     <div className="container">
                         <div className="payment">
-                            <div className="payment__title">Payment Method</div>
+                            <center><h1 style={{ marginTop: '50px', marginBottom: '20px' }}>Payment Method</h1></center>
                             <div className="payment__types">
                                 <div className="payment__type payment__type--paypal">
-                                    <Link to="/order_received">
-                                        {" "}
-                                        {/* Specify the URL where you want to navigate */}
+                                    <button onClick={BtnClick} style={{ background: 'none', color: 'black', border: 'none' }}>
                                         <i className="icon icon-paypal">Cash</i>
-                                    </Link>
+                                    </button>
                                 </div>
 
                                 <div
-                                    className={`payment__type payment__type--paypal ${selectedPaymentMethod === "paypal" ? "active" : ""
+                                    className={`payment__type payment__type--paypal ${showPayPalButtons ? "active" : ""
                                         }`}
-                                    onClick={() => {
-                                        setShow(true);
-                                        handlePaymentMethodChange("paypal");
-                                    }}
+                                    onClick={() => setSelectedPaymentMethod("paypal")}
                                 >
                                     <Link>
                                         <i className="icon icon-paypal">Paypal</i>
-                                        {show ? (
-                                            <PayPalScriptProvider
-                                                options={{ "client-id": CLIENT_ID }}
-                                            >
+                                        {showPayPalButtons && (
+                                            <PayPalScriptProvider options={{ "client-id": CLIENT_ID }}>
                                                 <PayPalButtons
                                                     style={{ layout: "vertical" }}
                                                     createOrder={createOrder}
                                                     onApprove={onApprove}
+                                                    onError={onError}
                                                 />
                                             </PayPalScriptProvider>
-                                        ) : null}
+                                        )}
                                     </Link>
                                 </div>
                             </div>

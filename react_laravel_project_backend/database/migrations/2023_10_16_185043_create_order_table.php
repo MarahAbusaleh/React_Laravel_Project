@@ -19,6 +19,7 @@ return new class extends Migration
             $table->time('time');
             $table->string('location');
             $table->text('notes');
+            $table->text('phone');
             $table->float('totalPrice');
             $table->boolean('editing');
 
@@ -27,6 +28,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

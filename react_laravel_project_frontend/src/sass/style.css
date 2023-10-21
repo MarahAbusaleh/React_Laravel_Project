@@ -13329,3 +13329,14 @@ label {
   height: 30%;
   width: 100%;
 }
+
+.form-field2 {
+  background: transparent;
+  width: 100%;
+  height: 50px;
+  border: 1px solid transparent;
+  border-radius: 0px;
+  box-shadow: none !important;
+  padding-left: 25px;
+  border: 1px solid #ebebeb;
+}
