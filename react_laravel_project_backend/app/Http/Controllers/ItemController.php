@@ -12,10 +12,11 @@ use RealRashid\SweetAlert\Facades\Alert;
 class ItemController extends Controller
 {
     // Return all items as a response to API
-    public function getAllItems()
+    public function getAllItems($id)
     {
-        $items = Item::all();
+        // $items = Item::all();
         // $category = Category::where("category_id", $id)->first();
+        $items = Item::where('category_id',$id)->get();
         return response()->json($items);
     }
 

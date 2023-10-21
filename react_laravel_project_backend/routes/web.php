@@ -7,7 +7,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +44,7 @@ Route::group(['middleware' => 'adminMiddleware'], function () {
 // Rama & salam dashboard routes
 Route::resource('categories', CategoryController::class);
 Route::resource('items', ItemController::class);
+Route::resource('order', OrderController::class);
 // Route::resource('reviews',[ ReviewController::class ,'getAllReviews']);
 // Route::resource('review/{id}',[ ReviewController::class ,'getSingleReview']);
 //Route::resource('reviews', ReviewController::class);

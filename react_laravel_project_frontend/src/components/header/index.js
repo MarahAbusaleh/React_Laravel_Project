@@ -214,6 +214,11 @@ const Header = (props) => {
                             Register
                           </Link>
                         </li>
+                        <li>
+                          <Link onClick={ClickHandler} to="/payment">
+                            Checkout
+                          </Link>
+                        </li>
                       </ul>
                     </li>
                     <li>

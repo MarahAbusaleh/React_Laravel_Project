@@ -10,13 +10,14 @@ class Order extends Model
     use HasFactory;
 
     protected $table = 'order';
-
+    public $timestamps = false;
     protected $fillable = [
         'date',
         'time',
         'location',
         'notes',
         'totalPrice',
+        
         'editing',
         'item_id',
         'user_id',
