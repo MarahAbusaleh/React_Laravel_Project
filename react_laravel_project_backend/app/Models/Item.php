@@ -18,7 +18,8 @@ class Item extends Model
         'price',
         'category_id',
     ];
-public $timestamps = false;
+    public $timestamps = false;
+
     public function category()
     {
         return $this->belongsTo(Category::class);

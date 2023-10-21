@@ -7,9 +7,23 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Http\JsonResponse;
 
 class OrderController extends Controller
 {
+    //This function to return the last user order as response to API
+    public function getTheLastUserOrder($user_id): JsonResponse
+    {
+        $userOrder = Order::where('user_id', $user_id)
+            ->latest('date')
+            ->with('item')
+            ->with('item.category')
+            ->first();
+
+        return response()->json($userOrder);
+    }
+
+
     public function index(OrderDataTable $dataTables)
     {
         return $dataTables->render('AdminDashboard.Pages.order.index');

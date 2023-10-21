@@ -5,9 +5,12 @@ import axios from '../../main-component/axios/axios';
 import { throttle } from 'lodash';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { useAuthContext } from "../../main-component/Contexts/ContextProvider";
+
 
 
 function PDF() {
+    const { currentUser } = useAuthContext();
 
     const pdfRef = useRef(null);
 
@@ -53,7 +56,7 @@ function PDF() {
         password: '',
     });
 
-    let user_id = 1;
+    let user_id = currentUser.id;
 
     /*------------------------------------------- getUserInfo API -------------------------------------------*/
     const getUserInfo = () => {

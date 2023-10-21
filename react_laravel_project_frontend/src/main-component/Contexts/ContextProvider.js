@@ -8,7 +8,6 @@ import SimpleReactValidator from "simple-react-validator";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
   const csrf = () => axiosClient.get("/sanctum/csrf-cookie");
   const [error, setError] = useState([]);
@@ -37,7 +36,7 @@ export const AuthProvider = ({ children }) => {
 
         getUser();
         toast.success("You successfully Login on Parador !");
-        navigate(-1);
+        push(-1);
       })
       .catch((error) => {
         if (error.response.status == 422) {
@@ -48,7 +47,6 @@ export const AuthProvider = ({ children }) => {
         }
       });
     localStorage.setItem("isLoggedIn", JSON.stringify(true));
-
   };
 
 
@@ -75,7 +73,6 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     axiosClient.post("/logout").then(() => {
       localStorage.removeItem('user');
-      localStorage.setItem("isLoggedIn", JSON.stringify(false));
       setCurrentUser(null);
       localStorage.removeItem('user_id');
     });
