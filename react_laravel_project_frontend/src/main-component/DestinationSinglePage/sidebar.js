@@ -21,37 +21,19 @@ const DestinationSidebar = (props) => {
     return (
         <div className="col-lg-4 col-md-8">
             <div className="wpo-single-sidebar">
-                <div className="wpo-service-widget widget">
-                    <h2>All Destination</h2>
+                <div className="wpo-service-widget widget row">
+                    <h2>Benefits of Drones</h2>
                     <ul>
-                        {Destinations.slice(0, 5).map((destination, Sitem) => (
-                            <li key={Sitem}><Link onClick={ClickHandler} to={`/destination-single/${destination.id}`}>{destination.title}</Link></li>
-                        ))}
+                        <li>Aerial Surveillance</li>
+                    
                     </ul>
                 </div>
-                <div className="wpo-newsletter-widget widget">
-                    <h2>Newsletter</h2>
-                    <p>Join 20,000 Sabscribers!</p>
-                    <form className="form" onSubmit={SubmitHandler}>
-                        <input type="text" placeholder="Email Address" />
-                        <button type="submit">Sign Up</button>
-                    </form>
-                    <span>By signing up you agree to our <Link onClick={ClickHandler} to="/destination-single/1">Privecy Policy</Link></span>
+                <div className="wpo-newsletter-widget widget row">
+                    <button type="submit" className="theme-btn col-12">Book Now</button>
                 </div>
-                <div className="wpo-instagram-widget widget">
-                    <h2>Instagram Shot</h2>
+                
 
-                    <ul>
-                        <li><img src={ins1} alt="" /></li>
-                        <li><img src={ins2} alt="" /></li>
-                        <li><img src={ins3} alt="" /></li>
-                        <li><img src={ins4} alt="" /></li>
-                        <li><img src={ins5} alt="" /></li>
-                        <li><img src={ins6} alt="" /></li>
-                    </ul>
-                </div>
-
-                <div className="wpo-contact-widget widget">
+                <div className="wpo-contact-widget widget row">
                     <h2>How We Can <br /> Help You!</h2>
                     <p>labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo
                         viverra maecenas accumsan lacus vel facilisis. </p>

@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,useParams } from "react-router-dom";
 import Destinations from "../../api/destination";
+
 
 const Destination2 = (props) => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { id } = useParams()
 
   const maxRetries = 3;
   const delayBetweenRetries = 1000;
@@ -40,7 +42,7 @@ const Destination2 = (props) => {
   };
 
   useEffect(() => {
-    makeRequestWithRetries("http://127.0.0.1:8000/api/items");
+    makeRequestWithRetries(`http://127.0.0.1:8000/api/items/${id}`);
   }, []);
 
   if (loading) {
@@ -61,10 +63,10 @@ const Destination2 = (props) => {
         <div className="destination-wrap">
           <div className="row">
             {items.map((item) => (
-              <div className="col-lg-4 col-md-6 col-12" key={item.id}>
-                <div className="destination-item">
+              <div className="col-lg-4 col-md-6 col-12" key={item.id} >
+                <div className="destination-item" style={{ height: '400px' }}>
                   <div className="destination-img">
-                    <img src={item.image} alt="" />
+                    <img src={item.image} alt="" style={{ height: '250px' }}/>
                   </div>
                   <div className="destination-content">
                     {/* <span className="sub">{item.name}</span> */}
