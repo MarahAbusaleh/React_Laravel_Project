@@ -152,12 +152,7 @@ console.log(decoded.email);
                 }
               }
                 />
-                <Button className="twitter">
-                  <i className="fa fa-twitter"></i>
-                </Button>
-                <Button className="linkedin">
-                  <i className="fa fa-linkedin"></i>
-                </Button>
+                
               </Grid>
               <p className="noteHelp">
                 Don't have an account?{" "}
