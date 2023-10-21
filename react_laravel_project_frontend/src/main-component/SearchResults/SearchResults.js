@@ -6,7 +6,7 @@ import { addToCart } from "../../store/actions/action";
 import SearchRooms from '../../components/SearchRooms/SearchRooms';
 import api from "../../api";
 import Scrollbar from '../../components/scrollbar';
-import Logo from '../../images/logo2.png'
+import Logo from '../../images/DroneDash__2_-removebg-preview.png'
 import Footer from '../../components/footer';
 
 const SearchResults =({ addToCart }) => {

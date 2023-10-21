@@ -5,7 +5,7 @@ import Navbar from '../../components/Navbar';
 import Scrollbar from '../../components/scrollbar'
 import Services from '../../api/service'
 import Footer from '../../components/footer';
-import Logo from '../../images/logo2.png'
+import Logo from '../../images/DroneDash__2_-removebg-preview.png'
 import Newslatter from '../../components/Newslatter/Newslatter';
 import ServiceSidebar from './sidebar';
 import Categorys from './category';

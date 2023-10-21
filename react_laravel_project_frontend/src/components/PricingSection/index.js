@@ -56,7 +56,7 @@ const PricingSection = (props) => {
   }
 
   return (
-    <section className="wpo-pricing-section section-padding">
+    <section className="wpo-pricing-section section-padding" id="drones">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-xl-6">

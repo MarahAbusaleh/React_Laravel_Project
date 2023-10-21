@@ -78,8 +78,12 @@ Route::get('/item/{id}', [ItemController::class, 'getSingleItem']);
 // Route::resource('reviews',[ ReviewController::class ,'getAllReviews']);
 // Route::resource('review/{id}',[ ReviewController::class ,'getSingleReview']);
 Route::get('/review/{id}', [ReviewController::class, 'getSingleReview']);
-Route::post('/review/{id}', [ReviewController::class, 'addNewReview']);
+Route::get('/reviews', [ReviewController::class, 'getAllReviews']);
+// Route::post('/review/{id}', [ReviewController::class, 'addNewReview']);
 Route::post('/review', [ReviewController::class, 'addNewReview']);
+Route::post('/users', [UserController::class, 'getAllUsers']);
+Route::put('/editReview/{id}/{user_id}', [ReviewController::class, 'editReview']);
+Route::delete('/deleteReview/{id}/{user_id}', [ReviewController::class, 'deleteReview']);
 
 
 

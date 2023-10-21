@@ -6,7 +6,7 @@ import Scrollbar from "../../components/scrollbar";
 import { connect } from "react-redux";
 import api from "../../api";
 import Footer from "../../components/footer";
-import Logo from "../../images/logo2.png";
+import Logo from "../../images/DroneDash__2_-removebg-preview.png";
 import Rooms from "./rooms";
 import RoomDetails from "./RoomDetails";
 //import Newslatter from "../../components/Newslatter/Newslatter";

@@ -13,7 +13,7 @@ import {
   decrementQuantity,
 } from "../../store/actions/action";
 
-import Logo from '../../images/logo2.png'
+import Logo from '../../images/DroneDash__2_-removebg-preview.png'
 
 const CartPage = (props) => {
   const ClickHandler = () => {

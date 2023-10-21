@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use App\DataTables\ReviewDataTable;
 use App\Models\Item;
 use App\Models\Review;
@@ -11,9 +12,9 @@ use Illuminate\Support\Facades\Date;
 class ReviewController extends Controller
 {
     // This function returns all reviews for a specific item as a response to the API.
-    public function getAllReviews()
+    public function getAllReviews(): JsonResponse
     {
-        $reviews = Review::all();
+        $reviews = Review::with('user')->get();
         return response()->json($reviews, 200);
     }
 
@@ -35,7 +36,7 @@ class ReviewController extends Controller
     // This function adds a new review that comes from a React page as a response to the API.
 
 
-public function addNewReview(Request $request)
+public function addNewReview(Request $request): JsonResponse
 {
     $formattedDate = Carbon::now()->format('Y-m-d');
 
@@ -43,9 +44,9 @@ public function addNewReview(Request $request)
         'comment' => $request->comment,
         'user_id' => $request->user_id,
         'item_id' => $request->item_id,
-        'date' => $formattedDate, // Use $formattedDate directly
+        'date' => $formattedDate, 
     ]);
-
+    $review->load('user');
     return response()->json($review);
 }
 

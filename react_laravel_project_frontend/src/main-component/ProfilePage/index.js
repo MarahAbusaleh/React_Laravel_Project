@@ -5,7 +5,7 @@ import Profile from '../../components/Profile';
 import Footer from '../../components/footer'
 import Scrollbar from '../../components/scrollbar'
 import { connect } from "react-redux";
-import Logo from '../../images/logo2.png'
+import Logo from '../../images/DroneDash__2_-removebg-preview.png'
 import { UserStateContext } from "../Contexts/ContextProvider";
 
 const ProfilePage = () => {

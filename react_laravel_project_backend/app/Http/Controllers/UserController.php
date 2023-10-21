@@ -17,6 +17,11 @@ class UserController extends Controller
         $userInfo = User::findOrFail($user_id);
         return response()->json($userInfo);
     }
+    public function getAllUsers()
+    {
+        $users = User::all();
+        return response()->json($users);
+    }
 
 
     //This function to add update user info that come from react page as response to API 

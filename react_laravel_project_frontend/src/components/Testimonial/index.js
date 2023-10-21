@@ -1,40 +1,34 @@
-import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-import test1 from '../../images/testimonial/img-1.jpg'
-import test2 from '../../images/testimonial/img-2.jpg'
-import test3 from '../../images/testimonial/img-3.jpg'
-
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "../../main-component/axios/axios";
 
 
-
-
-const Testimonials = [
-    {
-        tstImg: test1,
-        name: 'Elezabeth Marvel',
-        title: 'Photographer',
-        descriptoion: 'Lorem ipsum dolor sit amet, consectetur adiping elit, do eiusmod tempor incididunt ut labore et doliore magna aliqjtua. Quis ipsum suspendisse ultrices gravida. Risus commodo maepac cenas.',
-    },
-    {
-        tstImg: test2,
-        name: 'Marry Jenefer',
-        title: 'CEO Of Golden Bravo',
-        descriptoion: 'Lorem ipsum dolor sit amet, consectetur adiping elit, do eiusmod tempor incididunt ut labore et doliore magna aliqjtua. Quis ipsum suspendisse ultrices gravida. Risus commodo maepac cenas.',
-    },
-    {
-        tstImg: test3,
-        name: 'William Robert',
-        title: 'CEO Of Bexima',
-        descriptoion: 'Lorem ipsum dolor sit amet, consectetur adiping elit, do eiusmod tempor incididunt ut labore et doliore magna aliqjtua. Quis ipsum suspendisse ultrices gravida. Risus commodo maepac cenas.',
-    },
-]
+function Testimonial() {
+  const { id } = useParams();
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  useEffect(() => {
+    axios
+      .get(`/api/reviews`)
+      .then((response) => {
+        // console.log(response.data);
+        setReviews(response.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err);
+        setLoading(false);
+      });
+  }, [id]);
 
 
 
-const Testimonial = () => {
+// const Testimonial = () => {
 
     var settings = {
         dots: false,
@@ -48,19 +42,23 @@ const Testimonial = () => {
     };
 
     return (
-        <div className="wpo-testimonial-area">
-            <div className="container">
-                <div className="wpo-testimonial-wrap">
+        <div className="wpo-testimonial-area"  style={{marginTop: "50px",}}>
+            <div className="container row">
+                <center>
+                <h2>Reviews</h2> <br></br>
+              </center>
+              <center>
+                <div className="wpo-testimonial-wrap col-7">
                     <div className="testimonial-slider">
                         <Slider {...settings}>
-                            {Testimonials.map((tstml, tsm) => (
-                                <div className="wpo-testimonial-item" key={tsm}>
-                                    <div className="wpo-testimonial-img">
-                                        <img src={tstml.tstImg} alt="" />
+                        {reviews.map((review, index) =>(
+                                <div className="wpo-testimonial-item" key={index}>
+                                    <div className="wpo-testimonial-img"  >
+                                        <img src={review.user.image}style={{ width: "120px",margin:"60px"}} alt="" />
                                     </div>
                                     <div className="wpo-testimonial-content">
-                                        <p>{tstml.descriptoion}</p>
-                                        <h2>{tstml.name}</h2>
+                                        <p>{review.comment}</p>
+                                        <h2>{review.user.name}</h2>
                                         <span>Previous Client</span>
                                     </div>
                                 </div>
@@ -68,9 +66,10 @@ const Testimonial = () => {
                         </Slider>
                     </div>
                 </div>
+                </center>
             </div>
         </div>
     )
 }
 
-export default Testimonial;
+export default Testimonial; 

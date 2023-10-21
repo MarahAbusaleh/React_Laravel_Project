@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PageTitle from '../../components/pagetitle/PageTitle';
 import Navbar from '../../components/Navbar';
-import Logo from '../../images/logo2.png'
+import Logo from '../../images/DroneDash__2_-removebg-preview.png'
 import Newslatter from '../../components/Newslatter/Newslatter';
 import BlogSingle from '../../components/BlogDetails'
 import Scrollbar from '../../components/scrollbar'

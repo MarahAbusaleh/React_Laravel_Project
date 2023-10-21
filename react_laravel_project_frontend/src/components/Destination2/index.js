@@ -81,7 +81,7 @@ const Destination2 = (props) => {
 
                     {/* <p>{item.description}</p> */}
                     <div className="destination-bottom">
-                      <h5>${item.price} </h5>
+                      <h5>{item.price} JOD</h5>
                       <span>&nbsp; per hour</span>
                       <div className="destination-bottom-right">
                         <ul>

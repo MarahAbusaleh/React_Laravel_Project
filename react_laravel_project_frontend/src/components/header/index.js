@@ -56,172 +56,38 @@ const Header = (props) => {
                   <ul className="nav navbar-nav mb-2 mb-lg-0">
                     <li className="menu-item-has-children">
                       <Link to="/">Home</Link>
-                      <ul className="sub-menu">
-                        <li>
-                          <Link onClick={ClickHandler} to="/home">
-                            Home style 1
-                          </Link>
-                        </li>
-                      </ul>
+                      
                     </li>
                     <li>
                       <Link onClick={ClickHandler} to="/about">
                         About
                       </Link>
                     </li>
+                    
                     <li className="menu-item-has-children">
-                      <Link onClick={ClickHandler} to="/">
-                        Room
-                      </Link>
-                      <ul className="sub-menu">
-                        <li>
-                          <Link onClick={ClickHandler} to="/room">
-                            Room
-                          </Link>
-                        </li>
-                        <li>
-                          <Link onClick={ClickHandler} to="/room-single/1">
-                            Room single
-                          </Link>
-                        </li>
-                      </ul>
+                      {/* <Link onClick={ClickHandler} > */}
+                       <a href='/#drones'>Drone</a> 
+                      {/* </Link> */}
+                      
                     </li>
-                    <li className="menu-item-has-children">
-                      <Link onClick={ClickHandler} to="/">
-                        Destinition
-                      </Link>
-                      <ul className="sub-menu">
-                        <li>
-                          <Link onClick={ClickHandler} to="/destination">
-                            Destinition
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            onClick={ClickHandler}
-                            to="/destination-single/1"
-                          >
-                            Destinition single
-                          </Link>
-                        </li>
-                      </ul>
-                    </li>
-                    <li className="menu-item-has-children">
-                      <Link onClick={ClickHandler} to="/blog">
-                        Blog
-                      </Link>
-                      <ul className="sub-menu">
-                        <li>
-                          <Link onClick={ClickHandler} to="/blog">
-                            Blog right sidebar
-                          </Link>
-                        </li>
-                        <li>
-                          <Link onClick={ClickHandler} to="/blog-left-sidebar">
-                            Blog left sidebar
-                          </Link>
-                        </li>
-                        <li>
-                          <Link onClick={ClickHandler} to="/blog-fullwidth">
-                            Blog fullwidth
-                          </Link>
-                        </li>
-                        <li className="menu-item-has-children">
-                          <Link onClick={ClickHandler} to="/">
-                            Blog details
-                          </Link>
-                          <ul className="sub-menu">
-                            <li>
-                              <Link onClick={ClickHandler} to="/blog-single/1">
-                                Blog details right sidebar
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                onClick={ClickHandler}
-                                to="/blog-single-left-sidebar/1"
-                              >
-                                Blog details left sidebar
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                onClick={ClickHandler}
-                                to="/blog-single-fullwidth/1"
-                              >
-                                Blog details fullwidth
-                              </Link>
-                            </li>
-                            <li><Link onClick={ClickHandler} to="/blog-single-left-sidebar/1">Blog details left
-                              sidebar</Link></li>
-                            <li><Link onClick={ClickHandler} to="/order">Order Form</Link></li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </li>
-                    <li className="menu-item-has-children">
-                      <Link onClick={ClickHandler} to="/">
-                        Pages
-                      </Link>
-                      <ul className="sub-menu">
-                        <li>
-                          <Link onClick={ClickHandler} to="/service">
-                            Service
-                          </Link>
-                        </li>
-                        <li>
-                          <Link onClick={ClickHandler} to="/service-s2">
-                            Service Style2
-                          </Link>
-                        </li>
-                        <li>
-                          <Link onClick={ClickHandler} to="/service-single/1">
-                            Service Single
-                          </Link>
-                        </li>
-                        <li>
-                          <Link onClick={ClickHandler} to="/cart">
-                            Cart
-                          </Link>
-                        </li>
-                        <li>
-                          <Link onClick={ClickHandler} to="/checkout">
-                            Checkout
-                          </Link>
-                        </li>
-                        <li>
-                          <Link onClick={ClickHandler} to="/pricing">
-                            Pricing
-                          </Link>
-                        </li>
-                        <li>
-                          <Link onClick={ClickHandler} to="/search-result">
-                            Search Result
-                          </Link>
-                        </li>
-                        <li>
-                          <Link onClick={ClickHandler} to="/404">
-                            404
-                          </Link>
-                        </li>
-                        <li>
-                          <Link onClick={ClickHandler} to="/login">
-                            Login
-                          </Link>
-                        </li>
-                        <li>
-                          <Link onClick={ClickHandler} to="/register">
-                            Register
-                          </Link>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
+                   
+                     <li>
                       <Link onClick={ClickHandler} to="/contact">
                         Contact
                       </Link>
                     </li>
+                   
                   </ul>
+                        <button className="theme-btn" style={{ marginLeft: "180px", color: 'white'}}>
+                          <Link onClick={ClickHandler} to="/login">
+                            Login
+                          </Link>
+                        </button>
+                        <button className="theme-btn" style={{ margin: "22px", color: 'white' }}>
+                          <Link onClick={ClickHandler} to="/register">
+                            Register
+                          </Link>
+                        </button>
                 </div>
               </div>
               <div className="col-lg-1 col-md-2 col-2">
@@ -294,7 +160,7 @@ const Header = (props) => {
                       </div>
                     </div>
                   </div>
-                  <div className="mini-cart">
+                  {/* <div className="mini-cart">
                     <button
                       className="cart-toggle-btn"
                       onClick={() => setcartState(!cartActive)}
@@ -367,7 +233,7 @@ const Header = (props) => {
                         <img src={shape} alt="icon" />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

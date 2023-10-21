@@ -3,7 +3,7 @@ import PageTitle from '../../components/pagetitle/PageTitle';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/footer'
 import Scrollbar from '../../components/scrollbar'
-import Logo from '../../images/logo2.png'
+import Logo from '../../images/DroneDash__3_-removebg-preview.png'
 import About2 from '../../components/about2/about2';
 import Destination from '../../components/Destination';
 import FunFact from '../../components/FunFact';

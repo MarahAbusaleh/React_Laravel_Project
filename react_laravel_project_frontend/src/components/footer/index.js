@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Logo from '../../images/logo.png'
+import Logo from '../../images/DroneDash__2_-removebg-preview.png'
 
 
 const Footer = (props) => {
