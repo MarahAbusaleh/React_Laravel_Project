@@ -9,6 +9,9 @@ import ins5 from '../../images/instragram/5.jpg'
 import ins6 from '../../images/instragram/6.jpg'
 
 const DestinationSidebar = ({ itemId }) => {
+    let isLoggedIn = localStorage.getItem("isLoggedIn", JSON.parse(true));
+    console.log(isLoggedIn);
+
 
     const SubmitHandler = (e) => {
         e.preventDefault()
@@ -29,7 +32,7 @@ const DestinationSidebar = ({ itemId }) => {
                     </ul>
                 </div>
                 <div className="wpo-newsletter-widget widget row">
-                    <Link to={`/order/${itemId}`}>
+                    <Link to={isLoggedIn == "true" ? `/order/${itemId}` : '/login'}>
                         <button type="submit" className="theme-btn col-12">
                             Book Now
                         </button>
@@ -44,7 +47,7 @@ const DestinationSidebar = ({ itemId }) => {
                     <Link onClick={ClickHandler} to="/contact">Contact Us</Link>
                 </div>
             </div>
-        </div>
+        </div >
 
     )
 }

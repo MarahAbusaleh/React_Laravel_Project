@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -36,5 +36,4 @@ class LoginGoogle extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-
 }

@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Grid from "@mui/material/Grid";
 import SimpleReactValidator from "simple-react-validator";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../Contexts/ContextProvider";
-import { GoogleLogin} from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import './style.scss';
 import axiosClient from '../axios/axios';
@@ -16,6 +16,8 @@ import axiosClient from '../axios/axios';
 
 
 const LoginPage = (props) => {
+  const navigate = useNavigate();
+
   const push = useNavigate();
   const { login, getUser, error } = useAuthContext(); // Call the context function
 
@@ -126,33 +128,36 @@ const LoginPage = (props) => {
               </Grid>
               <Grid className="loginWithSocial">
                 <GoogleLogin
-                onSuccess={(credentialResponse)=>{
-                  const decoded =jwt_decode( credentialResponse.credential); 
-console.log(decoded.email);
-                 axiosClient
-                   .post("/api/google", decoded)
-                   .then((response) => {
-                     console.log(response.data);
-                     getUser();
-                     toast.success("You successfully Login on Parador !");
-                     push("/home");
-                   })
-                   .catch((error) => {
-                     if (error.response.status == 422) {
-                       validator.showMessages();
-                       toast.error(error);
-                     }
-                   });
+                  onSuccess={(credentialResponse) => {
+                    const decoded = jwt_decode(credentialResponse.credential);
+                    console.log(decoded);
+                    axiosClient
+                      .post("/api/google", decoded)
+                      .then((response) => {
+                        console.log("test");
+                        console.log(response.data);
+                        getUser();
+                        toast.success("You successfully Login on Parador !");
+                        localStorage.setItem("isLoggedIn", JSON.stringify(true));
+                        navigate(-1);
+
+                      })
+                      .catch((error) => {
+                        if (error.response.status == 422) {
+                          validator.showMessages();
+                          toast.error(error);
+                        }
+                      });
 
 
 
-}}
-                onError={()=>{
-                  console.log('login failed');
-                }
-              }
+                  }}
+                  onError={() => {
+                    console.log('login failed');
+                  }
+                  }
                 />
-                
+
               </Grid>
               <p className="noteHelp">
                 Don't have an account?{" "}
