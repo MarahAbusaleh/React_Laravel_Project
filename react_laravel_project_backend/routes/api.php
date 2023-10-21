@@ -85,5 +85,4 @@ Route::delete('/deleteReview/{id}/{user_id}', [ReviewController::class, 'deleteR
 
 
 
-Route::get('social/google', [LoginGoogle::class, 'redirect']);
-Route::get('social/google/callback', [LoginGoogle::class, 'googleCallback']);
+Route::post('google', [LoginGoogle::class, 'google'])->name('google');

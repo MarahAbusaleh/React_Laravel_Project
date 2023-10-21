@@ -8,15 +8,16 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import {Link, useNavigate} from "react-router-dom";
 import { useAuthContext } from "../Contexts/ContextProvider";
-import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { GoogleLogin} from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import './style.scss';
+import axiosClient from '../axios/axios';
 
 
 
 const LoginPage = (props) => {
   const push = useNavigate();
-  const { login,logingoogle ,error} = useAuthContext(); // Call the context function
+  const { login, getUser, error } = useAuthContext(); // Call the context function
 
   const [value, setValue] = useState({
     email: "",
@@ -38,10 +39,7 @@ const LoginPage = (props) => {
       className: "errorMessage",
     })
   );
-const loginbygoogle = useGoogleLogin({
 
-  onSuccess: (tokenResponse) =>logingoogle(tokenResponse) ,
-});
   const submitForm = (e) => {
     e.preventDefault();
     if (validator.allValid()) {
@@ -127,15 +125,34 @@ const loginbygoogle = useGoogleLogin({
                 </Button>
               </Grid>
               <Grid className="loginWithSocial">
-                <Button onClick={loginbygoogle} className="google">
-                  <i className="fa fa-google"></i>
-                </Button>
-                <Button className="twitter">
-                  <i className="fa fa-twitter"></i>
-                </Button>
-                <Button className="linkedin">
-                  <i className="fa fa-linkedin"></i>
-                </Button>
+                <GoogleLogin
+                onSuccess={(credentialResponse)=>{
+                  const decoded =jwt_decode( credentialResponse.credential); 
+console.log(decoded.email);
+                 axiosClient
+                   .post("/api/google", decoded)
+                   .then((response) => {
+                     console.log(response.data);
+                     getUser();
+                     toast.success("You successfully Login on Parador !");
+                     push("/home");
+                   })
+                   .catch((error) => {
+                     if (error.response.status == 422) {
+                       validator.showMessages();
+                       toast.error(error);
+                     }
+                   });
+
+
+
+}}
+                onError={()=>{
+                  console.log('login failed');
+                }
+              }
+                />
+                
               </Grid>
               <p className="noteHelp">
                 Don't have an account?{" "}
