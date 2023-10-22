@@ -227,15 +227,20 @@ const OrderForm = (props) => {
                         />
                       </div>
 
-                      <div className="form group">
-                        <label><h4>Editing Video:</h4></label>
+                      <div className="form-group">
+                        <label style={{ display: 'inline', color: 'white', alignItems: 'right' }}>
+                          <h4 style={{ display: 'inline', marginRight: '8px' }}>Editing Video:</h4>
+                          Upgrade your video with 20 JOD of professional editing?
+                        </label>
                         <input
                           type="checkbox"
                           name="editing"
                           checked={formData.editing}
                           onChange={handleEditingChange}
+                          style={{ transform: 'scale(0.6)', marginLeft: '90px' }} // Adjust the scale value as needed
                         />
                       </div>
+
                       <div className="form-btn">
                         <center>
                           <button className="theme-btn " type="submit">
