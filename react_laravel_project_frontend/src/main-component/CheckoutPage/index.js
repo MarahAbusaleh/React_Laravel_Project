@@ -1,20 +1,20 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import PageTitle from '../../components/pagetitle/PageTitle';
 import Navbar from '../../components/Navbar';
 import CheckoutSection from '../../components/CheckoutSection'
 import Footer from '../../components/footer'
 import Scrollbar from '../../components/scrollbar'
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import Logo from '../../images/DroneDash__2_-removebg-preview.png'
 
-const CheckoutPage =({cartList}) => {
-    return(
-        <Fragment>
-            <Navbar hclass={'wpo-header-style-3'} Logo={Logo} />
-            <PageTitle pageTitle={'Checkout'} pagesub={'Checkout'}/> 
-            <CheckoutSection cartList={cartList}/>
-            <Footer/>
-            <Scrollbar/>
+const CheckoutPage = ({ cartList }) => {
+    return (
+        <Fragment><Navbar hclass={'wpo-header-style-3'} Logo={Logo} />
+
+            <PageTitle pageTitle={'Checkout'} pagesub={'Checkout'} />
+            <CheckoutSection cartList={cartList} />
+            <Footer />
+            <Scrollbar />
         </Fragment>
     )
 };

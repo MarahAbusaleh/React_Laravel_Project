@@ -17,7 +17,7 @@ class Order extends Model
         'location',
         'notes',
         'totalPrice',
-        
+
         'editing',
         'item_id',
         'user_id',
@@ -27,6 +27,10 @@ class Order extends Model
     {
         return $this->belongsTo(Item::class);
     }
+
+
+
+
 
     public function user()
     {

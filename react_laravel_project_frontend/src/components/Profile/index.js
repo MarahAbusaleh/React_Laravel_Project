@@ -8,9 +8,15 @@ import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
 import axios from '../../main-component/axios/axios';
 import { throttle } from 'lodash';
+import localStorage from 'redux-persist/es/storage';
+import { useAuthContext } from "../../main-component/Contexts/ContextProvider";
+
 
 function Profile() {
     const navigate = useNavigate();
+    const { currentUser } = useAuthContext();
+    console.log(currentUser)
+
     const [activeTab, setActiveTab] = useState('tab');
     const [editableField, setEditableField] = useState(null);
     const [userOrder, setUserOrder] = useState({
@@ -47,7 +53,8 @@ function Profile() {
     });
     const [userPass, setUserPass] = useState('');
 
-    let user_id = 1;
+    const user_id = currentUser.id;
+
 
     /*------------------------------------------- getUserInfo API -------------------------------------------*/
     const getUserInfo = () => {

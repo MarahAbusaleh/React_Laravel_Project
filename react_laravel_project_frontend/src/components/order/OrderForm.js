@@ -8,7 +8,9 @@ import Header from "../header/index";
 import Footer from "../../components/footer/index";
 import PageTitle from "../../components/pagetitle/PageTitle";
 import Navbar from '../../components/Navbar';
-import Logo from '../../images/logo2.png'
+import Logo from "../../images/DroneDash__3_-removebg-preview.png";
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const OrderForm = (props) => {
@@ -126,14 +128,9 @@ const OrderForm = (props) => {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   return (
     <div>
-      <Header />
       <Navbar hclass={'wpo-header-style-3'} Logo={Logo} />
       <PageTitle pageTitle="Order" pagesub={"Order Form"} />
-
-      <br />
-      <br />
-      <br />
-      <br />
+      {/* Include your Header, Navbar, and PageTitle components here */}
       <div className="centered-box">
         <div className="box">
           <div id="booking" className="section">
@@ -142,7 +139,6 @@ const OrderForm = (props) => {
                 <div className="row">
                   <div className="booking-form">
                     <div className="form-header">
-                      <h1>Make a Reservation</h1>
                     </div>
                     <form onSubmit={handleSubmit}>
                       <div className="form-group">
@@ -150,7 +146,9 @@ const OrderForm = (props) => {
                           className="form-control"
                           type="hidden"
                           name="user_id"
+                          // value={formData.user_id}
                           value={user_id}
+
                           onChange={handleInputChange}
                         />
                       </div>
@@ -159,13 +157,15 @@ const OrderForm = (props) => {
                           className="form-control"
                           type="hidden"
                           name="item_id"
+                          // value={formData.item_id}
                           value={itemId}
+
                           onChange={handleInputChange}
                         />
                       </div>
 
                       <div className="form-group">
-                        <label>Date:</label>
+                        <label><h4>Date:</h4></label>
                         <input
                           className="form-control"
                           type="date"
@@ -175,7 +175,7 @@ const OrderForm = (props) => {
                         />
                       </div>
                       <div className="form-group">
-                        <label>Time:</label>
+                        <label><h4>Time:</h4></label>
                         <input
                           className="form-control"
                           type="time"
@@ -185,7 +185,7 @@ const OrderForm = (props) => {
                         />
                       </div>
                       <div className="form-group">
-                        <label>Location:</label>
+                        <label><h4>Location:</h4></label>
                         <input
                           className="form-control"
                           type="text"
@@ -195,7 +195,7 @@ const OrderForm = (props) => {
                         />
                       </div>
                       <div className="form-group">
-                        <label>Phone:</label>
+                        <label><h4>Phone:</h4></label>
                         <input
                           className="form-control"
                           type="text"
@@ -206,7 +206,7 @@ const OrderForm = (props) => {
                         />
                       </div>
                       <div className="form-group">
-                        <label>Notes:</label>
+                        <label><h4>Notes:</h4></label>
                         <textarea
                           className="form-control"
                           name="notes"
@@ -215,19 +215,20 @@ const OrderForm = (props) => {
                         />
                       </div>
                       <div className="form-group">
-                        <label>Total Price:</label>
+                        <label><h4>Total Price:</h4></label>
                         <input
                           className="form-control"
                           type="text"
                           name="totalPrice"
+                          // value={formData.totalPrice}
                           value={item ? item.item.price : ""}
+
                           onChange={handleInputChange}
-                        // readOnly
                         />
                       </div>
 
-                      <div className="form-group">
-                        <label>Editing Video:</label>
+                      <div className="form group">
+                        <label><h4>Editing Video:</h4></label>
                         <input
                           type="checkbox"
                           name="editing"
@@ -236,14 +237,13 @@ const OrderForm = (props) => {
                         />
                       </div>
                       <div className="form-btn">
-                        {/* <Link to={`/order/${itemId}`}>
-                          <button type="submit" className="theme-btn col-12">
+                        <center>
+                          <button className="theme-btn " type="submit">
                             Proceed to checkout
                           </button>
-                        </Link> */}
-                        <button className="submit-btn" type="submit">
-                          Proceed to checkout
-                        </button>
+                        </center>
+                        <br>
+                        </br>
                       </div>
                     </form>
                   </div>
@@ -252,9 +252,9 @@ const OrderForm = (props) => {
             </div>
           </div>
         </div>
-      </div> <br /><br /><br /><br />
-      <Footer />
-    </div>
+      </div >
+      {/* Include your Footer component here */} <Footer />
+    </div >
   );
 };
 

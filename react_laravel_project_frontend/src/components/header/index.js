@@ -24,7 +24,7 @@ const Header = (props) => {
 
   return (
     <header id="header" className={props.topbarBlock}>
-    
+
       <div className={`wpo-site-header ${props.hclass}`}>
         <nav className="navigation navbar navbar-expand-lg navbar-light">
           <div className="container-fluid">
@@ -56,79 +56,68 @@ const Header = (props) => {
                   <ul className="nav navbar-nav mb-2 mb-lg-0">
                     <li className="menu-item-has-children">
                       <Link to="/">Home</Link>
-                      
+
                     </li>
                     <li>
                       <Link onClick={ClickHandler} to="/about">
                         About
                       </Link>
                     </li>
-                    
+
                     <li className="menu-item-has-children">
                       {/* <Link onClick={ClickHandler} > */}
-                       <a href='/#drones'>Drone</a> 
+                      <a href='/#drones'>Drone</a>
                       {/* </Link> */}
-                      
+
                     </li>
-                   
-                     <li>
+
+                    <li>
                       <Link onClick={ClickHandler} to="/contact">
                         Contact
                       </Link>
                     </li>
-                   
+
                   </ul>
-                        <button className="theme-btn" style={{ marginLeft: "180px", color: 'white'}}>
-                          <Link onClick={ClickHandler} to="/login">
-                            Login
-                          </Link>
-                        </button>
-                        <button className="theme-btn" style={{ margin: "22px", color: 'white' }}>
-                          <Link onClick={ClickHandler} to="/register">
-                            Register
-                          </Link>
-                        </button>
                 </div>
               </div>
               <div className="col-lg-1 col-md-2 col-2">
-                <div className="header-right">
-                  <div className="header-search-form-wrapper">
-                    <div className="cart-search-contact">
-                      <Link to="/profile">
-                        <button className="search-toggle-btn">
-                          <i className={`fi ${menuActive ? "ti-close" : "fi flaticon-user"}`}></i>
-                        </button>
+                <div className="header-right ">
+                  {currentUser == null ? <>
+                    <button className="theme-btn" style={{ marginLeft: "180px", color: 'white', padding: '10px' }}>
+                      <Link onClick={ClickHandler} to="/login">
+                        Login
                       </Link>
+                    </button>
+                    <button className="theme-btn" style={{ margin: "22px", color: 'white', padding: '10px' }}>
+                      <Link onClick={ClickHandler} to="/register">
+                        Register
+                      </Link>
+                    </button>
+                  </> :
+                    <div className="col-lg-1 col-md-2 col-2">
+                      <div className="header-right ">
+                        <Link>
+                          {" "}
+                          <button onClick={logout} className="theme-btn" style={{ margin: "22px", color: 'white', padding: '10px' }}>
+                            logout
+                          </button>
+                        </Link>
+                        <Link to="/profile">
+                          <button className="search-toggle-btn">
+                            <i
+                              className={`fi ${menuActive ? "ti-close" : "fi flaticon-user"
+                                }`}
+                            ></i>
+                          </button>
+                        </Link>
+
+
+                        {/* </li> */}
+                      </div>
                     </div>
-                  </div>
+                  }
+
                   <div className="header-search-form-wrapper">
-                    <div className="cart-search-contact">
-                      {currentUser ? (
-                        <li className="menu-item-has-children">
-                          <ul className="sub-menu">  <Link to="/profile">
-                            <button className="search-toggle-btn">
-                              <i
-                                className={`fi ${menuActive ? "ti-close" : "fi flaticon-user"
-                                  }`}
-                              ></i>
-                            </button>
-                          </Link>
-                            <Link>
-                              {" "}
-                              <button onClick={logout} to="/login">
-                                logout
-                              </button>
-                            </Link></ul>
-
-                        </li>
-
-
-                      ) : (
-
-                        <>
-                        </>
-                      )}
-                    </div>
                   </div>
                   <div className="header-search-form-wrapper">
                     <div className="cart-search-contact">
@@ -250,4 +239,3 @@ const mapStateToProps = (state) => {
   };
 };
 export default connect(mapStateToProps, { removeFromCart })(Header);
-
