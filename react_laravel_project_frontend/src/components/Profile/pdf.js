@@ -115,6 +115,7 @@ function PDF() {
                 <div className="row">
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 well profile">
                         <section className="wpo-about-section-s2 section-padding" style={{ background: 'none', padding: '60px 0px' }}>
+                            {/* <img src='../../images/DroneDash__3_-removebg-preview.png' /> */}
                             <div className="container-fluid">
                                 <div className="">
                                     <h2>{userData.name}</h2>
