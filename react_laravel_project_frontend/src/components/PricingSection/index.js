@@ -70,7 +70,7 @@ const PricingSection = (props) => {
                 <div className="wpo-pricing-item">
                   <div className="wpo-pricing-top">
                     <div className="wpo-pricing-img">
-                      <img src={`${process.env.PUBLIC_URL}/${category.image}`} alt="rama alababenh" />
+                      <img src={`${category.image}`} alt="Drone Image" />
                     </div>
                     <div className="wpo-pricing-text">
                       <h4>{category.name}</h4>
