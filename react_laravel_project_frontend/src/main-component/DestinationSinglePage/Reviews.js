@@ -118,7 +118,7 @@ function Reviews() {
                     }}
                     className="edit-button"
                     style={{
-                      backgroundColor: "#ff7400", // Background color
+                      backgroundColor: "#008000",
                       color: "white",
                       border: "none",
                       padding: "10px 20px",
@@ -132,7 +132,7 @@ function Reviews() {
                     onClick={() => handleDeleteClick(review.id)}
                     className="delete-button"
                     style={{
-                      backgroundColor: "#0074cc", // Background color
+                      backgroundColor: "#FF0000", 
                       color: "white",
                       border: "none",
                       padding: "10px 20px",
@@ -159,8 +159,18 @@ function Reviews() {
                       placeholder="Edit your comment"
                       value={commentText}
                       onChange={(e) => setCommentText(e.target.value)}
-                    />
-                    <button type="submit">Save Edit</button>
+                    />                       
+
+                    <button type="submit"style={{
+                      backgroundColor: "#008000", 
+                      color: "white",
+                      marginTop:"10px",
+                      border: "none",
+                      padding: "10px 20px",
+                      borderRadius: "5px",
+                      cursor: "pointer",
+                      marginLeft:"10px",
+                    }}>Save Edit</button>
                   </div>
                 </form>
               ) : (
@@ -198,7 +208,7 @@ function Reviews() {
                     onChange={(e) => setCommentText(e.target.value)}
                   />
                   <button type="submit"style={{
-                      backgroundColor: "#ff7400", // Background color
+                      backgroundColor: "#0074cc",
                       color: "white",
                       border: "none",
                       padding: "10px 20px",

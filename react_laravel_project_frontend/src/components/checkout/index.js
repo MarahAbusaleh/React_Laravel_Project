@@ -138,7 +138,8 @@ const Checkout = () => {
                                     <div className="item__description">
                                         {item.item.description}
                                     </div>
-                                    <h3>{tPrice && tPrice}</h3>
+                                    {/* <h3>{tPrice && tPrice}</h3> */}
+                                    <h3>{item.item.price}</h3>
                                 </div>
                             </div>
                         </div>
