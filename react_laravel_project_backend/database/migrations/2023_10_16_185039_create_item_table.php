@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('item', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('image');
+            $table->longText('image');
             $table->longText('description');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('category');

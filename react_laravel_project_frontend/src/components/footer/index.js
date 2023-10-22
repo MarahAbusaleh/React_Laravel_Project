@@ -70,7 +70,7 @@ const Footer = (props) => {
                                         <li><i className="fi flaticon-placeholder"></i>7 Green Lake Street Crawfordsville, IN
                                             47933</li>
                                         <li><i className="fi flaticon-phone-call"></i>+1 800 123 456 789</li>
-                                        <li><i className="fi flaticon-send"></i>parador@gmail.com</li>
+                                        <li><i className="fi flaticon-send"></i>DroneDash@gmail.com</li>
                                     </ul>
                                 </div>
                             </div>
@@ -82,7 +82,7 @@ const Footer = (props) => {
                 <div className="container">
                     <div className="row">
                         <div className="col col-xs-12">
-                            <p className="copyright"> Copyright &copy; 2022 Parador by <Link onClick={ClickHandler} to="/">wpOceans</Link>.
+                            <p className="copyright"> Copyright &copy; 2022 DroneDash by <Link onClick={ClickHandler} to="/">wpOceans</Link>.
                                 All Rights Reserved.</p>
                         </div>
                     </div>

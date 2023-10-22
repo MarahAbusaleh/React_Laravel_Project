@@ -61,6 +61,7 @@ const DestinationSinglePage = (props) => {
                   <div className="wpo-destination-single-content-des">
                     <h2>{item.item.name}</h2>
                     <p>{item.item.description}</p>
+                    <h3>{item.item.price} JOD</h3>
                   </div>
                 </div>
                 <Reviews />

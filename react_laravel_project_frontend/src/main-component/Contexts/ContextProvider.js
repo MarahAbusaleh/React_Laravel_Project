@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
         const user = response.data
 
         getUser();
-        toast.success("You successfully Login on Parador !");
+        toast.success("You successfully Login on DroneDash !");
         push(-1);
       })
       .catch((error) => {
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
       .then((response) => {
         console.log(response.data);
         getUser();
-        toast.success("You successfully Login on Parador !");
+        toast.success("You successfully Login on DroneDash !");
         push("/login");
       })
       .catch((error) => {

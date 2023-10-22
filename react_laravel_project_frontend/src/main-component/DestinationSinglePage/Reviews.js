@@ -3,11 +3,13 @@ import axios from "../axios/axios";
 
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 // import test1 from '../../images/defaultImage.png'
 
 
 function Reviews() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [reviews, setReviews] = useState([]);
   let [commentText, setCommentText] = useState("");
   let [editCommentId, setEditCommentId] = useState(null);
@@ -82,24 +84,28 @@ function Reviews() {
   };
 
   const handleDeleteClick = async (commentId) => {
-    if (window.confirm("Are you sure you want to delete this comment?")) {
-      try {
-        await axios.delete(`/api/deleteReview/${commentId}/${loggedInUserId}`);
-        const updatedReviews = reviews.filter((review) => review.id !== commentId);
-        setReviews(updatedReviews);
-      } catch (error) {
-        console.error("Error while deleting comment:", error);
-      }
+    try {
+      await axios.delete(`/api/deleteReview/${commentId}/${loggedInUserId}`);
+      const updatedReviews = reviews.filter((review) => review.id !== commentId);
+      setReviews(updatedReviews);
+    } catch (error) {
+      console.error("Error while deleting comment:", error);
     }
+    Swal.fire({
+      icon: "success",
+      title: "Are You Sure!",
+    }).then((result) => {
+      navigate(0);
+    });
   };
 
   return (
     <div>
       <div className="room-title">
-          <h2>Room Reviews</h2>
-        </div>
+        <h2>Reviews</h2>
+      </div>
       <div className="room-review" style={{ maxHeight: '400px', overflowY: 'auto' }}>
-        
+
         {reviews.map((review, index) => (
           <div className="review-item" key={index}>
             <div className="review-img" style={{ width: '80px' }}>
@@ -108,43 +114,43 @@ function Reviews() {
             <div className="review-text">
               <div className="r-title">
                 <h2>{review.user.name}</h2>
-              
+
                 {loggedInUserId === review.user_id && (
-                  <div style={{ marginLeft:"30px" }}>
-                  <button
-                    onClick={() => {
-                      console.log("Edit button clicked with comment ID:", review.id);
-                      handleEditClick(review.id);
-                    }}
-                    className="edit-button"
-                    style={{
-                      backgroundColor: "#008000",
-                      color: "white",
-                      border: "none",
-                      padding: "10px 20px",
-                      borderRadius: "5px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDeleteClick(review.id)}
-                    className="delete-button"
-                    style={{
-                      backgroundColor: "#FF0000", 
-                      color: "white",
-                      border: "none",
-                      padding: "10px 20px",
-                      borderRadius: "5px",
-                      cursor: "pointer",
-                      marginLeft:"10px",
-                    }}
-                  >
-                    Delete
-                  </button>
-                </div>
-                
+                  <div style={{ marginLeft: "30px" }}>
+                    <button
+                      onClick={() => {
+                        console.log("Edit button clicked with comment ID:", review.id);
+                        handleEditClick(review.id);
+                      }}
+                      className="edit-button"
+                      style={{
+                        backgroundColor: "#008000",
+                        color: "white",
+                        border: "none",
+                        padding: "10px 20px",
+                        borderRadius: "5px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDeleteClick(review.id)}
+                      className="delete-button"
+                      style={{
+                        backgroundColor: "#FF0000",
+                        color: "white",
+                        border: "none",
+                        padding: "10px 20px",
+                        borderRadius: "5px",
+                        cursor: "pointer",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+
                 )}
 
               </div>
@@ -159,17 +165,17 @@ function Reviews() {
                       placeholder="Edit your comment"
                       value={commentText}
                       onChange={(e) => setCommentText(e.target.value)}
-                    />                       
+                    />
 
-                    <button type="submit"style={{
-                      backgroundColor: "#008000", 
+                    <button type="submit" style={{
+                      backgroundColor: "#0074cc",
                       color: "white",
-                      marginTop:"10px",
+                      marginTop: "10px",
                       border: "none",
                       padding: "10px 20px",
                       borderRadius: "5px",
                       cursor: "pointer",
-                      marginLeft:"10px",
+                      marginLeft: "10px",
                     }}>Save Edit</button>
                   </div>
                 </form>
@@ -207,15 +213,15 @@ function Reviews() {
                     value={commentText}
                     onChange={(e) => setCommentText(e.target.value)}
                   />
-                  <button type="submit"style={{
-                      backgroundColor: "#0074cc",
-                      color: "white",
-                      border: "none",
-                      padding: "10px 20px",
-                      borderRadius: "5px",
-                      cursor: "pointer",
-                      marginTop:"15px",
-                    }}>
+                  <button type="submit" style={{
+                    backgroundColor: "#0074cc",
+                    color: "white",
+                    border: "none",
+                    padding: "10px 20px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    marginTop: "15px",
+                  }}>
                     {editCommentId ? "Save Edit" : "Submit Comment"}
                   </button>
                 </div>

@@ -61,7 +61,7 @@ const SignUpPage = () => {
   };
   return (
     <Grid className="loginWrapper">
-      <div className="loginForm " style={{ backgroundImage: `url("./bg.jpg")` }}
+      <div className="loginForm " style={{ backgroundImage: `url("../../assets/images/bg-2.jpg")` }}
       >
         <h2>Signup</h2>
         <p>Signup your account</p>

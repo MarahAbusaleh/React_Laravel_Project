@@ -13,7 +13,7 @@ class ItemSeeder extends Seeder
             [
                 'name' => 'Commercial',
                 'price' => '100',
-                'image' => 'drone.png',
+                'image' => 'https://erepublic.brightspotcdn.com/dims4/default/fd921cc/2147483647/strip/true/crop/1119x583+0+23/resize/840x438!/format/webp/quality/90/?url=http%3A%2F%2Ferepublic-brightspot.s3.us-west-2.amazonaws.com%2F2c%2F10%2Fe5bd7e7c1c11ec6e40b623fe15bd%2Fshutterstock-738490876.jpg',
                 'description' => 'Capture stunning aerial views and dynamic perspectives with commercial drone photography, enhancing your marketing materials and showcasing your business from above.',
                 'category_id' => 1,
             ],
@@ -34,7 +34,7 @@ class ItemSeeder extends Seeder
             [
                 'name' => 'Commercial',
                 'price' =>  '120',
-                'image' => 'drone.png',
+                'image' => 'https://erepublic.brightspotcdn.com/dims4/default/fd921cc/2147483647/strip/true/crop/1119x583+0+23/resize/840x438!/format/webp/quality/90/?url=http%3A%2F%2Ferepublic-brightspot.s3.us-west-2.amazonaws.com%2F2c%2F10%2Fe5bd7e7c1c11ec6e40b623fe15bd%2Fshutterstock-738490876.jpg',
                 'description' => 'Capture stunning aerial views and dynamic perspectives with commercial drone photography, enhancing your marketing materials and showcasing your business from above.',
                 'category_id' => 2,
             ],
@@ -55,7 +55,7 @@ class ItemSeeder extends Seeder
             [
                 'name' => 'Commercial',
                 'price' =>  '140',
-                'image' => 'drone.png',
+                'image' => 'https://erepublic.brightspotcdn.com/dims4/default/fd921cc/2147483647/strip/true/crop/1119x583+0+23/resize/840x438!/format/webp/quality/90/?url=http%3A%2F%2Ferepublic-brightspot.s3.us-west-2.amazonaws.com%2F2c%2F10%2Fe5bd7e7c1c11ec6e40b623fe15bd%2Fshutterstock-738490876.jpg',
                 'description' => 'Capture stunning aerial views and dynamic perspectives with commercial drone photography, enhancing your marketing materials and showcasing your business from above.',
                 'category_id' => 3,
             ],

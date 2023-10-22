@@ -137,7 +137,7 @@ const LoginPage = (props) => {
                         console.log("test");
                         console.log(response.data);
                         getUser();
-                        toast.success("You successfully Login on Parador !");
+                        toast.success("You successfully Login on DroneDash !");
                         localStorage.setItem("isLoggedIn", JSON.stringify(true));
                         navigate(-1);
 
