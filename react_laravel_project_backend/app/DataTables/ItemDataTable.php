@@ -90,7 +90,7 @@ class ItemDataTable extends DataTable
         return [
             Column::make('name'),
             Column::make('image'),
-            Column::make('description'),
+            Column::make('description')->width(100),
             Column::make('price'),
             Column::make('category name'),
             Column::computed('action')
