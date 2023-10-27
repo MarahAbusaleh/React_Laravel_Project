@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import Axios from "axios";
 import PageTitle from "../../components/pagetitle/PageTitle";
 import Navbar from '../../components/Navbar';
-import Logo from '../../images/logo2.png';
+import Logo from '../../images/DroneDash__3_-removebg-preview.png'
 import throttle from "lodash/throttle";
 import Swal from "sweetalert2";
 
@@ -66,7 +66,7 @@ const Checkout = () => {
                         description: "Sunflower",
                         amount: {
                             currency_code: "USD",
-                            value: tPrice,
+                            value: 20,
                         },
                     },
                 ],
@@ -138,7 +138,8 @@ const Checkout = () => {
                                     <div className="item__description">
                                         {item.item.description}
                                     </div>
-                                    <h3>{tPrice && tPrice}</h3>
+                                    {/* <h3>{tPrice && tPrice}</h3> */}
+                                    <h3>{item.item.price}</h3>
                                 </div>
                             </div>
                         </div>

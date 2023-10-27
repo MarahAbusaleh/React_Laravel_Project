@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*------------------------------------------------------------------
 [Master Stylesheet]
-Theme Name:     Parador – Hotel Booking HTML5 Template
+Theme Name:     DroneDash – Hotel Booking HTML5 Template
 Version:        1.0.0
 -------------------------------------------------------------------*/
 /*--------------------------------------------------------------
@@ -13320,7 +13320,7 @@ label {
 }
 
 .login-bg {
-  background: url("./bg.jpg");
+  background: url("../../src/assets/images/bg-2.jpg");
   background-size: cover;
 }
 /* ouers */

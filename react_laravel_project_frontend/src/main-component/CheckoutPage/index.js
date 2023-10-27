@@ -9,7 +9,8 @@ import Logo from '../../images/DroneDash__2_-removebg-preview.png'
 
 const CheckoutPage = ({ cartList }) => {
     return (
-        <Fragment><Navbar hclass={'wpo-header-style-3'} Logo={Logo} />
+        <Fragment>
+            <Navbar hclass={'wpo-header-style-3'} Logo={Logo} />
 
             <PageTitle pageTitle={'Checkout'} pagesub={'Checkout'} />
             <CheckoutSection cartList={cartList} />

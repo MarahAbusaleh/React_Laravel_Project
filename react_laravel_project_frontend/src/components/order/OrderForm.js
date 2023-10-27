@@ -218,24 +218,30 @@ const OrderForm = (props) => {
                         <label><h4>Total Price:</h4></label>
                         <input
                           className="form-control"
-                          type="text"
                           name="totalPrice"
                           // value={formData.totalPrice}
                           value={item ? item.item.price : ""}
-
+                          readOnly
                           onChange={handleInputChange}
                         />
                       </div>
 
-                      <div className="form group">
-                        <label><h4>Editing Video:</h4></label>
-                        <input
-                          type="checkbox"
-                          name="editing"
-                          checked={formData.editing}
-                          onChange={handleEditingChange}
-                        />
+                      <div className="form-group">
+                        <label style={{ display: 'inline', color: 'white' }}>
+                          <input
+                            type="checkbox"
+                            name="editing"
+                            checked={formData.editing}
+                            onChange={handleEditingChange}
+                            style={{ transform: 'scale(0.5)', marginLeft: '-290px' }} // Adjust the scale value as needed
+                          />
+
+                          <h4 style={{ display: 'inline', marginLeft: '-270px' }}>Editing Video:</h4>&nbsp;&nbsp;
+                          Upgrade your video with 20 JOD of professional editing?
+                        </label>
+
                       </div>
+
                       <div className="form-btn">
                         <center>
                           <button className="theme-btn " type="submit">

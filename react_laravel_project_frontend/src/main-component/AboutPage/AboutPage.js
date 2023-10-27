@@ -9,17 +9,15 @@ import Destination from '../../components/Destination';
 import FunFact from '../../components/FunFact';
 import PricingSection from '../../components/PricingSection';
 import Testimonial from '../../components/Testimonial';
+import ImageWithParagraph from "../HomePage/ImageWithParagraph";
+
 
 const AboutPage = () => {
     return (
         <Fragment>
             <Navbar hclass={'wpo-header-style-3'} Logo={Logo} />
             <PageTitle pageTitle={'About Us'} pagesub={'About'} />
-            <About2 />
-            <Destination />
-            <FunFact fClass={'section-padding'} />
-            <PricingSection />
-            <Testimonial />
+            <ImageWithParagraph />
             <Footer />
             <Scrollbar />
         </Fragment>

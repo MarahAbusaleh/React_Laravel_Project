@@ -10,6 +10,7 @@ import axios from '../../main-component/axios/axios';
 import { throttle } from 'lodash';
 import localStorage from 'redux-persist/es/storage';
 import { useAuthContext } from "../../main-component/Contexts/ContextProvider";
+import bcrypt from 'bcryptjs';
 
 
 function Profile() {
@@ -81,8 +82,9 @@ function Profile() {
         const oldPassword = e.target.elements.oldPass.value;
         const newPassword = e.target.elements.password.value;
         const confirmPassword = e.target.elements.confPass.value;
+        const hashedOldPassword = bcrypt.hashSync(oldPassword, 10);
 
-        if (oldPassword === userData.password) {
+        if (hashedOldPassword === userData.password) {
             if (newPassword === confirmPassword) {
                 setUserPass(newPassword);
             } else {
