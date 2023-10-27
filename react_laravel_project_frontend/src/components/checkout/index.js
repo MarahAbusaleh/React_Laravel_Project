@@ -66,7 +66,7 @@ const Checkout = () => {
                         description: "Sunflower",
                         amount: {
                             currency_code: "USD",
-                            value: "20",
+                            value: tPrice,
                         },
                     },
                 ],

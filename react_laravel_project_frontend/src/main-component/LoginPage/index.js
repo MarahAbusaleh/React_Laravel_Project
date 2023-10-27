@@ -12,6 +12,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import './style.scss';
 import axiosClient from '../axios/axios';
+import axios from "axios";
 
 
 
@@ -128,7 +129,8 @@ const LoginPage = (props) => {
               </Grid>
               <Grid className="loginWithSocial">
                 <GoogleLogin
-                  onSuccess={(credentialResponse) => {
+                  onSuccess={async(credentialResponse) => {
+                     
                     const decoded = jwt_decode(credentialResponse.credential);
                     console.log(decoded);
                     axiosClient
@@ -138,9 +140,11 @@ const LoginPage = (props) => {
                         console.log(response.data);
                         getUser();
                         toast.success("You successfully Login on Parador !");
-                        localStorage.setItem("isLoggedIn", JSON.stringify(true));
+                        localStorage.setItem(
+                          "isLoggedIn",
+                          JSON.stringify(true)
+                        );
                         navigate(-1);
-
                       })
                       .catch((error) => {
                         if (error.response.status == 422) {
@@ -148,9 +152,6 @@ const LoginPage = (props) => {
                           toast.error(error);
                         }
                       });
-
-
-
                   }}
                   onError={() => {
                     console.log('login failed');
